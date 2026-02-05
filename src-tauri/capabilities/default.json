@@ -1,0 +1,147 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "enables the default permissions",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "core:app:default",
+    "shell:default",
+    "fs:default",
+    "dialog:default",
+    "allow-app-commands",
+    "core:webview:allow-print",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "git",
+          "cmd": "git",
+          "args": true
+        },
+        {
+          "name": "node",
+          "cmd": "node",
+          "args": true
+        },
+        {
+          "name": "bun",
+          "cmd": "bun",
+          "args": true
+        },
+        {
+          "name": "cargo",
+          "cmd": "cargo",
+          "args": true
+        },
+        {
+          "name": "npm",
+          "cmd": "npm",
+          "args": true
+        },
+        {
+          "name": "pnpm",
+          "cmd": "pnpm",
+          "args": true
+        },
+        {
+          "name": "yarn",
+          "cmd": "yarn",
+          "args": true
+        },
+        {
+          "name": "docker",
+          "cmd": "docker",
+          "args": true
+        },
+        {
+          "name": "ps",
+          "cmd": "ps",
+          "args": true
+        },
+        {
+          "name": "top",
+          "cmd": "top",
+          "args": true
+        },
+        {
+          "name": "kill",
+          "cmd": "kill",
+          "args": true
+        },
+        {
+          "name": "pkill",
+          "cmd": "pkill",
+          "args": true
+        },
+        {
+          "name": "lsof",
+          "cmd": "lsof",
+          "args": true
+        },
+        {
+          "name": "netstat",
+          "cmd": "netstat",
+          "args": true
+        },
+        {
+          "name": "ping",
+          "cmd": "ping",
+          "args": true
+        },
+        {
+          "name": "curl",
+          "cmd": "curl",
+          "args": true
+        },
+        {
+          "name": "ifconfig",
+          "cmd": "ifconfig",
+          "args": true
+        },
+        {
+          "name": "ip",
+          "cmd": "ip",
+          "args": true
+        },
+        {
+          "name": "df",
+          "cmd": "df",
+          "args": true
+        },
+        {
+          "name": "du",
+          "cmd": "du",
+          "args": true
+        },
+        {
+          "name": "uptime",
+          "cmd": "uptime",
+          "args": true
+        },
+        {
+          "name": "sysctl",
+          "cmd": "sysctl",
+          "args": true
+        },
+        {
+          "name": "sh",
+          "cmd": "sh",
+          "args": true
+        },
+        {
+          "name": "bash",
+          "cmd": "bash",
+          "args": true
+        },
+        {
+          "name": "zsh",
+          "cmd": "zsh",
+          "args": true
+        }
+      ]
+    }
+  ]
+}

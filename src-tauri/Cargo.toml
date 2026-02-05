@@ -1,0 +1,33 @@
+[package]
+name = "bun-codeview"
+version = "0.1.0"
+description = "Bun Markdown Editor"
+authors = ["you"]
+license = ""
+repository = ""
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "bun_codeview_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+
+[dependencies]
+tauri = { version = "2.0", features = [] }
+tauri-plugin-shell = "2.0"
+tauri-plugin-fs = "2.0"
+tauri-plugin-dialog = "2.0"
+tauri-plugin-log = "2.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+anyhow = "1.0"
+thiserror = "2.0"
+log = "0.4"
+chrono = { version = "0.4", features = ["serde"] }
+dirs = "5.0"
+markdown = "0.3"
+uuid = { version = "1.0", features = ["v4"] }

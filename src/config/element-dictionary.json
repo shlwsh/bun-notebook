@@ -1,0 +1,280 @@
+{
+    "version": "1.0",
+    "elements": [
+        {
+            "id": "service-type",
+            "name": "服务类型",
+            "nameEn": "Service Type",
+            "category": "Architecture",
+            "icon": "Layers",
+            "color": "#4CAF50",
+            "shape": "rounded-rect",
+            "description": "系统中的服务大类",
+            "isBuiltin": true
+        },
+        {
+            "id": "service-directory",
+            "name": "服务目录",
+            "nameEn": "Service Directory",
+            "category": "Architecture",
+            "icon": "FolderTree",
+            "color": "#2196F3",
+            "shape": "rounded-rect",
+            "description": "具体的服务项目或顶层目录",
+            "isBuiltin": true
+        },
+        {
+            "id": "module",
+            "name": "模块",
+            "nameEn": "Module",
+            "category": "Architecture",
+            "icon": "Package",
+            "color": "#9C27B0",
+            "shape": "rounded-rect",
+            "description": "逻辑功能模块",
+            "isBuiltin": true
+        },
+        {
+            "id": "submodule",
+            "name": "子模块",
+            "nameEn": "Submodule",
+            "category": "Architecture",
+            "icon": "Component",
+            "color": "#FF9800",
+            "shape": "rounded-rect",
+            "description": "细分功能模块",
+            "isBuiltin": true
+        },
+        {
+            "id": "class",
+            "name": "类",
+            "nameEn": "Class",
+            "category": "Architecture",
+            "icon": "FileCode",
+            "color": "#f44336",
+            "shape": "rectangle",
+            "description": "源代码类文件",
+            "isBuiltin": true
+        },
+        {
+            "id": "interface",
+            "name": "接口",
+            "nameEn": "Interface",
+            "category": "Architecture",
+            "icon": "FileType",
+            "color": "#E91E63",
+            "shape": "rectangle",
+            "description": "源代码接口文件",
+            "isBuiltin": true
+        },
+        {
+            "id": "method",
+            "name": "方法",
+            "nameEn": "Method",
+            "category": "Architecture",
+            "icon": "Function",
+            "color": "#607D8B",
+            "shape": "circle",
+            "description": "类或模块中的函数/方法",
+            "isBuiltin": true
+        },
+        {
+            "id": "property",
+            "name": "属性",
+            "nameEn": "Property",
+            "category": "Architecture",
+            "icon": "Variable",
+            "color": "#795548",
+            "shape": "circle",
+            "description": "类或模块中的变量/属性",
+            "isBuiltin": true
+        },
+        {
+            "id": "page-component",
+            "name": "页面组件",
+            "nameEn": "Page Component",
+            "category": "LinkTrace",
+            "icon": "Layout",
+            "color": "#4CAF50",
+            "shape": "rounded-rect",
+            "description": "前端页面或 UI 组件",
+            "isBuiltin": true
+        },
+        {
+            "id": "ui-action",
+            "name": "UI操作",
+            "nameEn": "UI Action",
+            "category": "LinkTrace",
+            "icon": "MousePointerClick",
+            "color": "#8BC34A",
+            "shape": "circle",
+            "description": "用户交互行为（点击、输入等）",
+            "isBuiltin": true
+        },
+        {
+            "id": "api-call",
+            "name": "API调用",
+            "nameEn": "API Call",
+            "category": "LinkTrace",
+            "icon": "Send",
+            "color": "#00BCD4",
+            "shape": "parallelogram",
+            "description": "前端向后端发起的 API 请求",
+            "isBuiltin": true
+        },
+        {
+            "id": "gateway",
+            "name": "网关",
+            "nameEn": "Gateway",
+            "category": "LinkTrace",
+            "icon": "Router",
+            "color": "#2196F3",
+            "shape": "hexagon",
+            "description": "API 网关路由",
+            "isBuiltin": true
+        },
+        {
+            "id": "controller",
+            "name": "控制器",
+            "nameEn": "Controller",
+            "category": "LinkTrace",
+            "icon": "Server",
+            "color": "#9C27B0",
+            "shape": "rectangle",
+            "description": "后端 API 接收端",
+            "isBuiltin": true
+        },
+        {
+            "id": "service-method",
+            "name": "服务方法",
+            "nameEn": "Service Method",
+            "category": "LinkTrace",
+            "icon": "Cog",
+            "color": "#673AB7",
+            "shape": "rectangle",
+            "description": "后端业务逻辑方法",
+            "isBuiltin": true
+        },
+        {
+            "id": "repository",
+            "name": "数据访问",
+            "nameEn": "Repository/DAO",
+            "category": "LinkTrace",
+            "icon": "Database",
+            "color": "#3F51B5",
+            "shape": "rectangle",
+            "description": "数据库访问层",
+            "isBuiltin": true
+        },
+        {
+            "id": "message-queue",
+            "name": "消息队列",
+            "nameEn": "Message Queue",
+            "category": "LinkTrace",
+            "icon": "MessageSquare",
+            "color": "#FF9800",
+            "shape": "diamond",
+            "description": "异步消息处理队列",
+            "isBuiltin": true
+        },
+        {
+            "id": "cache",
+            "name": "缓存",
+            "nameEn": "Cache",
+            "category": "LinkTrace",
+            "icon": "HardDrive",
+            "color": "#FFC107",
+            "shape": "diamond",
+            "description": "内存缓存或分布式缓存",
+            "isBuiltin": true
+        },
+        {
+            "id": "database-table",
+            "name": "数据库表",
+            "nameEn": "Database Table",
+            "category": "LinkTrace",
+            "icon": "Table2",
+            "color": "#f44336",
+            "shape": "cylinder",
+            "description": "持久化存储表",
+            "isBuiltin": true
+        },
+        {
+            "id": "sql-query",
+            "name": "SQL查询",
+            "nameEn": "SQL Query",
+            "category": "LinkTrace",
+            "icon": "FileSearch",
+            "color": "#E91E63",
+            "shape": "rectangle",
+            "description": "执行的数据库查询语句",
+            "isBuiltin": true
+        },
+        {
+            "id": "response-dto",
+            "name": "响应数据",
+            "nameEn": "Response DTO",
+            "category": "LinkTrace",
+            "icon": "FileJson",
+            "color": "#607D8B",
+            "shape": "parallelogram",
+            "description": "返回给前端的数据结构",
+            "isBuiltin": true
+        },
+        {
+            "id": "frontend-service",
+            "name": "前端服务",
+            "nameEn": "Frontend Service",
+            "category": "Architecture",
+            "icon": "Monitor",
+            "color": "#4CAF50",
+            "shape": "rounded-rect",
+            "description": "前端单页应用或客户端",
+            "isBuiltin": true
+        },
+        {
+            "id": "backend-service",
+            "name": "后端服务",
+            "nameEn": "Backend Service",
+            "category": "Architecture",
+            "icon": "Server",
+            "color": "#2196F3",
+            "shape": "rounded-rect",
+            "description": "后端微服务或单体服务",
+            "isBuiltin": true
+        },
+        {
+            "id": "middleware-service",
+            "name": "中间件服务",
+            "nameEn": "Middleware Service",
+            "category": "Architecture",
+            "icon": "Network",
+            "color": "#FF9800",
+            "shape": "hexagon",
+            "description": "网关、注册中心、配置中心等",
+            "isBuiltin": true
+        },
+        {
+            "id": "database-service",
+            "name": "数据库服务",
+            "nameEn": "Database Service",
+            "category": "Architecture",
+            "icon": "Database",
+            "color": "#f44336",
+            "shape": "cylinder",
+            "description": "数据库集群或单个实例",
+            "isBuiltin": true
+        },
+        {
+            "id": "external-service",
+            "name": "外部服务",
+            "nameEn": "External Service",
+            "category": "Architecture",
+            "icon": "Cloud",
+            "color": "#9E9E9E",
+            "shape": "stadium",
+            "description": "第三方云服务或外部 API",
+            "isBuiltin": true
+        }
+    ]
+}

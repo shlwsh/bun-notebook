@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  
+  /* VS Code Dark Theme Colors */
+  --vscode-bg: #1e1e1e;
+  --vscode-sidebar-bg: #252525;
+  --vscode-activitybar-bg: #181818;
+  --vscode-editor-bg: #1e1e1e;
+  --vscode-panel-bg: #181818;
+  --vscode-statusbar-bg: #007acc;
+  --vscode-border: #2b2b2b;
+  --vscode-text: #cccccc;
+  --vscode-text-muted: #858585;
+  --vscode-text-dim: #6a6a6a;
+  
+  color: var(--vscode-text);
+  background-color: var(--vscode-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.3);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.5);
+}
+
+/* Glassmorphism utilities */
+.glass {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 65, 85, 0.3);
+}
+
+.glass-light {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(51, 65, 85, 0.2);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effects */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1);
+}
+
+.glow-indigo {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3), 0 0 40px rgba(99, 102, 241, 0.1);
+}
+
+/* Animations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* Node Shapes */
+.shape-hexagon {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.shape-cylinder {
+  border-radius: 20px / 10px;
+}
+
+.shape-parallelogram {
+  transform: skew(-20deg);
+}
+
+.shape-parallelogram > * {
+  transform: skew(20deg);
+}
+
+.shape-diamond {
+  transform: rotate(45deg);
+}
+
+.shape-diamond > * {
+  transform: rotate(-45deg);
+}
+
+.shape-stadium {
+  border-radius: 9999px;
+}

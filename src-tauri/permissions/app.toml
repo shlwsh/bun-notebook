@@ -1,0 +1,36 @@
+[[permission]]
+identifier = "allow-app-commands"
+description = "Allows all application commands"
+commands.allow = [
+  "parse_project",
+  "get_graph",
+  "get_git_history",
+  "analyze_impact",
+  "audit_project",
+  "get_project_metrics",
+  "build_hierarchy",
+  "get_hierarchy_children",
+  "discover_link_trace",
+  "export_graph",
+  "import_graph",
+  "get_config",
+  "save_config",
+  "auto_save_graph",
+  "load_saved_graph",
+  "check_saved_graph_exists",
+  "get_analysis_logs",
+  "read_log_file",
+  "get_project_history",
+  "add_project_to_history",
+  "clear_project_history",
+  "read_directory_tree",
+  "read_file_content",
+  "write_file_content",
+  "create_dir",
+  "save_binary_file",
+  "export_markdown",
+  "create_new_file",
+  "copy_file",
+  "rename_file",
+  "delete_file"
+]
