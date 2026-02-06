@@ -218,6 +218,20 @@ bun run upgrade "添加新功能"
 bun run upgrade "修复bug"
 ```
 
+### 创建发布 Tag
+
+```bash
+bun run mytag
+```
+
+此命令会：
+1. 自动读取当前版本号
+2. 创建对应的 Git tag（如 `v1.0.20260206.007`）
+3. 推送 tag 到 GitHub
+4. 触发 GitHub Actions 自动构建和发布
+
+详细说明请查看 [MyTag 使用指南](docs/MYTAG_USAGE.md)。
+
 版本号会自动显示在状态栏右侧，点击可查看完整更新日志。
 
 ## 🤖 智能 Git 提交工具 (MyGit)
