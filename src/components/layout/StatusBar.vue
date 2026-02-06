@@ -58,7 +58,7 @@
       <div class="h-3 w-px bg-white/20"></div>
       
       <!-- App Name -->
-      <span class="opacity-75">源码分析系统</span>
+      <span class="opacity-75">MD Notebook</span>
       
       <!-- Separator -->
       <div class="h-3 w-px bg-white/20"></div>

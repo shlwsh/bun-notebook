@@ -1,6 +1,6 @@
-# Bun Markdown - 极简 Markdown 阅读与编辑器
+# MD Notebook - 极简 Markdown 阅读与编辑器
 
-Bun Markdown 是一款基于 **Tauri 2.0**、**Rust** 和 **Vue 3** 构建的高性能、精简型 Markdown 编辑器。它专注于为本地项目文档提供极速的浏览与编辑体验。
+MD Notebook 是一款基于 **Tauri 2.0**、**Rust** 和 **Vue 3** 构建的高性能、精简型 Markdown 编辑器。它专注于为本地项目文档提供极速的浏览与编辑体验。
 
 ## 🚀 核心特性
 
@@ -265,7 +265,7 @@ bun run mygit "feat: 添加新功能"
 如果您使用或修改了本软件，请在显著位置标注：
 
 ```
-基于 Bun Markdown 开发
+基于 MD Notebook 开发
 原作者：笨笨熊 (BenBenXiong)
 原始项目：[项目地址]
 ```

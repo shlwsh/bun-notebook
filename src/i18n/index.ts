@@ -54,7 +54,7 @@ const messages = {
             moreMatches: '{count} more matches...'
         },
         editor: {
-            title: 'BUN MARKDOWN',
+            title: 'MD NOTEBOOK',
             subtitle: 'Select a file to start editing',
             saveShortcut: '⌘ + S to Save',
             tableShortcut: 'Enter for Table Auto-complete',
@@ -106,7 +106,7 @@ const messages = {
             about: '关于'
         },
         dialogs: {
-            aboutTitle: 'Bun Markdown Editor v0.1.0',
+            aboutTitle: 'MD Notebook v0.1.0',
             aboutMessage: '专注于 MD 文件的查看与编辑',
             confirmDelete: '确定要删除 {name} 吗？'
         },
@@ -178,7 +178,7 @@ const messages = {
             moreMatches: '还有 {count} 个匹配项...'
         },
         editor: {
-            title: 'BUN MARKDOWN',
+            title: 'MD NOTEBOOK',
             subtitle: '从左侧选择并打开一个 MD 文件开始工作',
             saveShortcut: '⌘ + S 保存',
             tableShortcut: 'Enter 表格自动补全',
@@ -230,7 +230,7 @@ const messages = {
             about: '詳細'
         },
         dialogs: {
-            aboutTitle: 'Bun Markdown Editor v0.1.0',
+            aboutTitle: 'MD Notebook v0.1.0',
             aboutMessage: 'MDファイルの閲覧と編集に特化',
             confirmDelete: '{name} を削除してもよろしいですか？'
         },
@@ -302,7 +302,7 @@ const messages = {
             moreMatches: 'Ещё {count} совпадений...'
         },
         editor: {
-            title: 'BUN MARKDOWN',
+            title: 'MD NOTEBOOK',
             subtitle: 'Выберите файл для редактирования',
             saveShortcut: '⌘ + S Сохранить',
             tableShortcut: 'Enter Автодополнение таблиц',
@@ -340,7 +340,7 @@ const messages = {
             about: 'О программе'
         },
         dialogs: {
-            aboutTitle: 'Bun Markdown Editor v0.1.0',
+            aboutTitle: 'MD Notebook v0.1.0',
             aboutMessage: 'Ориентирован на просмотр и редактирование MD файлов',
             confirmDelete: 'Вы уверены, что хотите удалить {name}?'
         },
@@ -412,7 +412,7 @@ const messages = {
             moreMatches: '他 {count} 件...'
         },
         editor: {
-            title: 'BUN MARKDOWN',
+            title: 'MD NOTEBOOK',
             subtitle: '左側のファイルを選択して編集を開始',
             saveShortcut: '⌘ + S 保存',
             tableShortcut: 'Enter テーブル自動補完',
@@ -450,7 +450,7 @@ const messages = {
             about: '詳細'
         },
         dialogs: {
-            aboutTitle: 'Bun Markdown Editor v0.1.0',
+            aboutTitle: 'MD Notebook v0.1.0',
             aboutMessage: 'MDファイルの閲覧と編集に特化',
             confirmDelete: '{name} を削除してもよろしいですか？'
         },
@@ -522,7 +522,7 @@ const messages = {
             moreMatches: '{count} autres correspondances...'
         },
         editor: {
-            title: 'BUN MARKDOWN',
+            title: 'MD NOTEBOOK',
             subtitle: 'Sélectionnez un fichier pour commencer',
             saveShortcut: '⌘ + S pour Enregistrer',
             tableShortcut: 'Entrée pour Auto-complétion',
@@ -560,7 +560,7 @@ const messages = {
             about: 'À propos'
         },
         dialogs: {
-            aboutTitle: 'Bun Markdown Editor v0.1.0',
+            aboutTitle: 'MD Notebook v0.1.0',
             aboutMessage: 'Concentré sur la visualisation et l\'édition de fichiers MD',
             confirmDelete: 'Êtes-vous sûr de vouloir supprimer {name} ?'
         },
@@ -632,7 +632,7 @@ const messages = {
             moreMatches: '{count} weitere Treffer...'
         },
         editor: {
-            title: 'BUN MARKDOWN',
+            title: 'MD NOTEBOOK',
             subtitle: 'Datei auswählen um zu beginnen',
             saveShortcut: '⌘ + S zum Speichern',
             tableShortcut: 'Enter für Tabellen-Vervollständigung',
@@ -670,7 +670,7 @@ const messages = {
             about: 'About'
         },
         dialogs: {
-            aboutTitle: 'Bun Markdown Editor v0.1.0',
+            aboutTitle: 'MD Notebook v0.1.0',
             aboutMessage: 'Focused on MD file viewing and editing',
             confirmDelete: 'Are you sure you want to delete {name}?'
         },
