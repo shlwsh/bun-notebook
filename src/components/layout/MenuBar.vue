@@ -42,19 +42,24 @@
         <div v-if="menu.items.some(i => i.separator)" class="h-px bg-[#454545] my-1" />
       </div>
     </div>
+
+    <!-- About Dialog -->
+    <AboutDialog v-model="showAbout" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { FolderOpen, FileText, HelpCircle, RefreshCw } from 'lucide-vue-next';
+import { FolderOpen, FileText, HelpCircle, RefreshCw, LogOut, Info } from 'lucide-vue-next';
 import { useAppStore } from '../../store/app';
 import { useNavStore } from '../../store/navigation';
+import AboutDialog from '../AboutDialog.vue';
 
 const appStore = useAppStore();
 const navStore = useNavStore();
 
 const activeMenu = ref<string | null>(null);
+const showAbout = ref(false);
 
 const menus = [
   {
@@ -64,6 +69,8 @@ const menus = [
       { id: 'open-folder', label: '打开文件夹...', icon: FolderOpen, shortcut: 'Ctrl+O', action: 'openFolder' },
       { id: 'separator-1', separator: true },
       { id: 'refresh', label: '刷新', icon: RefreshCw, shortcut: 'Ctrl+R', action: 'refresh', disabled: true },
+      { id: 'separator-2', separator: true },
+      { id: 'exit', label: '退出', icon: LogOut, shortcut: 'Alt+F4', action: 'exit' },
     ]
   },
   {
@@ -77,7 +84,7 @@ const menus = [
     id: 'help',
     label: '帮助',
     items: [
-      { id: 'about', label: '关于', icon: HelpCircle, action: 'about' },
+      { id: 'about', label: '关于', icon: Info, action: 'about' },
     ]
   },
 ];
@@ -94,20 +101,36 @@ const handleMenuHover = (menuId: string) => {
 
 const handleMenuLeave = () => {};
 
-const handleMenuItemClick = (item: any) => {
+const handleMenuItemClick = async (item: any) => {
   if (item.disabled) return;
   activeMenu.value = null;
   
   switch (item.action) {
     case 'openFolder':
-      appStore.openProjectDialog();
+      await appStore.openProjectDialog();
       navStore.setActiveView('files');
       break;
     case 'toggleSidebar':
       // Implemented in AppLayout
       break;
     case 'about':
-      alert('Bun Markdown Editor v0.1.0\n专注于 MD 文件的查看与编辑');
+      showAbout.value = true;
+      break;
+    case 'exit':
+      try {
+        const { exit } = await import('@tauri-apps/plugin-process');
+        await exit(0);
+      } catch (error) {
+        console.error('Failed to exit application:', error);
+        // 备用方案
+        try {
+            const { getCurrentWindow } = await import('@tauri-apps/api/window');
+            const appWindow = getCurrentWindow();
+            await appWindow.close();
+        } catch (e) {
+            console.error('Failed to close window:', e);
+        }
+      }
       break;
   }
 };

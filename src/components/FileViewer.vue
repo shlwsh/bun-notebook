@@ -150,6 +150,12 @@
       <!-- Case 1: Editor Mode (Text/Code or Markdown Raw) -->
       <template v-if="shouldShowEditor">
         <div class="h-full flex flex-col bg-[#1e1e1e]">
+          <!-- Markdown Toolbar (only for MD files in edit mode) -->
+          <MarkdownToolbar 
+            v-if="isMarkdown && showRaw" 
+            :editor-view="editorView"
+          />
+          
           <div class="flex-1 overflow-hidden relative">
             <Codemirror
               v-model="editorContent"
@@ -160,6 +166,7 @@
               :tab-size="4"
               :extensions="editorExtensions"
               @change="handleEditorChange"
+              @ready="handleEditorReady"
             />
           </div>
         </div>
@@ -209,6 +216,10 @@ import {
 } from 'lucide-vue-next';
 import html2pdf from 'html2pdf.js';
 import mermaid from 'mermaid';
+import { detectFileType, getFileTypeConfig, isEditableFile, isPreviewableFile } from '../utils/fileTypeDetector';
+import { getFileIcon as getIconName, getFileIconColor as getIconColorName } from '../utils/fileIcons';
+import { FileType } from '../types/fileTypes';
+import MarkdownToolbar from './editor/MarkdownToolbar.vue';
 
 const { t } = useI18n();
 
@@ -224,6 +235,7 @@ const error = ref('');
 const showRaw = ref(false);
 const showExportMenu = ref(false);
 const showThemeMenu = ref(false);
+const editorView = ref<EditorView>();
 
 const themes = computed(() => [
   { name: t('fileViewer.themeNames.default'), value: 'default', style: { bg: '#1e1e1e', fg: '#cccccc', codeBg: '#2d2d2d' } },
@@ -476,59 +488,27 @@ const shouldShowEditor = computed(() => {
 const fileName = computed(() => props.filePath.split('/').pop() || 'Untitled');
 const fileExtension = computed(() => props.filePath.split('.').pop()?.toLowerCase() || '');
 
-const isImageFile = computed(() => {
-  const imageExtensions = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'bmp'];
-  return imageExtensions.includes(fileExtension.value);
-});
+// Use new file type system
+const fileType = computed(() => detectFileType(props.filePath));
+const fileTypeConfig = computed(() => getFileTypeConfig(props.filePath));
 
-const isTextFile = computed(() => {
-  // If it's not an image, try to read it as text
-  return !isImageFile.value;
-});
+const isImageFile = computed(() => fileType.value === FileType.IMAGE);
+const isTextFile = computed(() => isEditableFile(props.filePath) || isPreviewableFile(props.filePath));
 
 const getFileIcon = () => {
-  if (isImageFile.value) return ImageIcon;
-  if (fileExtension.value === 'json') return FileJson;
-  if (isTextFile.value) return FileCode;
-  return FileText;
+  const iconName = getIconName(props.filePath);
+  const iconMap: Record<string, any> = {
+    'FileText': FileText,
+    'FileCode': FileCode,
+    'FileJson': FileJson,
+    'Image': ImageIcon,
+    'File': File
+  };
+  return iconMap[iconName] || File;
 };
 
 const getFileIconColor = () => {
-  switch (fileExtension.value) {
-    case 'ts':
-    case 'tsx':
-      return 'text-blue-500';
-    case 'js':
-    case 'jsx':
-      return 'text-yellow-500';
-    case 'vue':
-      return 'text-green-500';
-    case 'py':
-      return 'text-blue-400';
-    case 'json':
-      return 'text-yellow-400';
-    default:
-      return 'text-[#858585]';
-  }
-};
-
-const getLanguage = () => {
-  const langMap: Record<string, string> = {
-    'ts': 'typescript',
-    'tsx': 'typescript',
-    'js': 'javascript',
-    'jsx': 'javascript',
-    'vue': 'vue',
-    'py': 'python',
-    'java': 'java',
-    'rs': 'rust',
-    'go': 'go',
-    'json': 'json',
-    'md': 'markdown',
-    'html': 'html',
-    'css': 'css',
-  };
-  return langMap[fileExtension.value] || 'plaintext';
+  return getIconColorName(props.filePath);
 };
 
 import { invoke } from '@tauri-apps/api/core';
@@ -623,7 +603,10 @@ const editorExtensions = computed(() => {
     })
   ];
   
-  if (isMarkdown.value) {
+  // Use file type system to determine language support
+  const language = fileTypeConfig.value.language;
+  
+  if (language === 'markdown') {
     extensions.push(markdown());
     // Table auto-complete keymap
     extensions.push(keymap.of([
@@ -648,16 +631,8 @@ const editorExtensions = computed(() => {
       },
       ...defaultKeymap
     ]));
-  } else if (fileExtension.value === 'js' || fileExtension.value === 'ts') {
-    extensions.push(javascript());
-  } else if (fileExtension.value === 'py') {
-    extensions.push(python());
-  } else if (fileExtension.value === 'rs') {
-    extensions.push(rust());
-  }
-  
-  // Basic linting for markdown
-  if (isMarkdown.value) {
+    
+    // Basic linting for markdown
     extensions.push(linter((view: EditorView) => {
       const diagnostics: any[] = [];
       const text = view.state.doc.toString();
@@ -684,6 +659,15 @@ const editorExtensions = computed(() => {
       });
       return diagnostics;
     }));
+  } else if (language === 'typescript' || language === 'javascript') {
+    // TypeScript/JavaScript support with syntax highlighting
+    extensions.push(javascript({ typescript: language === 'typescript' }));
+  } else if (language === 'json') {
+    extensions.push(javascript()); // JSON uses JavaScript mode
+  } else if (fileExtension.value === 'py') {
+    extensions.push(python());
+  } else if (fileExtension.value === 'rs') {
+    extensions.push(rust());
   }
   
   return extensions;
@@ -691,6 +675,10 @@ const editorExtensions = computed(() => {
 
 const handleEditorChange = (value: string) => {
   editorContent.value = value;
+};
+
+const handleEditorReady = (payload: any) => {
+  editorView.value = payload.view;
 };
 
 const saveFile = async () => {

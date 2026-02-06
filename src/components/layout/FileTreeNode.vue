@@ -111,6 +111,8 @@ import { nextTick, ref, watch, computed } from 'vue';
 import { useAppStore } from '../../store/app';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
+import { getFileIcon, getFileIconColor } from '../../utils/fileIcons';
+import { isTextFile } from '../../utils/fileIcons';
 
 interface FileNode {
   name: string;
@@ -303,15 +305,15 @@ const getHighlightedName = () => {
 
 const getNodeColor = () => {
     if (props.node.isDirectory) return 'text-[#cccccc]';
-    return props.node.name.toLowerCase().endsWith('.md') ? 'text-blue-400' : 'text-gray-500';
+    return getFileIconColor(props.node.name);
 };
 
 const handleSingleClick = () => {
   if (props.node.isDirectory) {
     expanded.value = !expanded.value;
   } else {
-    // Only allow selecting .md files
-    if (props.node.name.toLowerCase().endsWith('.md')) {
+    // Allow selecting all text files
+    if (isTextFile(props.node.name)) {
         emit('select', props.node.path);
     }
   }
@@ -319,8 +321,8 @@ const handleSingleClick = () => {
 
 const handleDoubleClick = () => {
   if (!props.node.isDirectory) {
-    // Only allow selecting .md files
-    if (props.node.name.toLowerCase().endsWith('.md')) {
+    // Allow selecting all text files
+    if (isTextFile(props.node.name)) {
         emit('select', props.node.path);
     }
   }
@@ -331,31 +333,16 @@ const getIcon = () => {
     return expanded.value ? FolderOpen : Folder;
   }
   
-  const ext = props.node.name.split('.').pop()?.toLowerCase();
-  switch (ext) {
-    case 'ts':
-    case 'tsx':
-    case 'js':
-    case 'jsx':
-    case 'vue':
-    case 'py':
-    case 'java':
-    case 'rs':
-      return FileCode;
-    case 'json':
-      return FileJson;
-    case 'png':
-    case 'jpg':
-    case 'jpeg':
-    case 'gif':
-    case 'svg':
-      return Image;
-    case 'md':
-    case 'txt':
-      return FileText;
-    default:
-      return File;
-  }
+  const iconName = getFileIcon(props.node.name);
+  const iconMap: Record<string, any> = {
+    'FileText': FileText,
+    'FileCode': FileCode,
+    'FileJson': FileJson,
+    'Image': Image,
+    'File': File
+  };
+  
+  return iconMap[iconName] || File;
 };
 
 const getIconColor = () => {
@@ -363,10 +350,6 @@ const getIconColor = () => {
     return 'text-yellow-500';
   }
   
-  if (props.node.name.toLowerCase().endsWith('.md')) {
-      return 'text-blue-400';
-  }
-  
-  return 'text-gray-500';
+  return getFileIconColor(props.node.name);
 };
 </script>
