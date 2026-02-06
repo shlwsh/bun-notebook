@@ -128,26 +128,61 @@
             </div>
           </section>
 
-          <!-- Copyright & Disclaimer -->
+          <!-- Copyright & License -->
           <section class="mb-4">
             <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
               <Shield :size="20" class="text-yellow-400" />
-              版权及免责声明
+              版权及开源协议
             </h3>
             <div class="bg-gray-800/50 p-4 rounded-lg border border-gray-700/50 space-y-3 text-sm">
               <div>
                 <p class="text-white font-semibold mb-1">© 版权所有</p>
-                <p class="text-gray-400">著作权人：<span class="text-blue-400 font-semibold">笨笨熊</span></p>
-                <p class="text-gray-400 text-xs mt-1">本软件受著作权法保护，未经授权不得复制、修改或分发。</p>
+                <p class="text-gray-400">著作权人：<span class="text-blue-400 font-semibold">笨笨熊 (BenBenXiong)</span></p>
+                <p class="text-gray-400 text-xs mt-1">Copyright © 2026 笨笨熊。本软件受著作权法保护。</p>
+                <p class="text-gray-400 text-xs mt-2">
+                  <span class="text-gray-500">联系方式：</span>
+                  <a href="mailto:shlwsh@126.com" class="text-blue-400 hover:text-blue-300 transition-colors">shlwsh@126.com</a>
+                </p>
+              </div>
+              
+              <div class="border-t border-gray-700 pt-3">
+                <p class="text-white font-semibold mb-2">开源协议</p>
+                <p class="text-gray-400 text-xs mb-2">本项目采用 <span class="text-blue-400 font-semibold">MIT License with Attribution Requirement</span></p>
+                <div class="bg-gray-900/50 p-3 rounded border border-gray-700">
+                  <p class="text-green-400 text-xs font-semibold mb-1">✅ 允许的行为：</p>
+                  <ul class="text-gray-400 text-xs space-y-1 list-disc list-inside ml-2">
+                    <li>免费使用、复制、修改、发布、分发本软件</li>
+                    <li>用于个人、学习、研究或商业目的</li>
+                    <li>创建衍生作品</li>
+                  </ul>
+                  <p class="text-yellow-400 text-xs font-semibold mb-1 mt-2">⚠️ 必须遵守：</p>
+                  <ul class="text-gray-400 text-xs space-y-1 list-disc list-inside ml-2">
+                    <li><span class="text-yellow-300">必须标注出处</span>：在源代码、应用或文档中注明原作者和项目来源</li>
+                    <li>保留版权声明：在所有副本中包含原始版权声明</li>
+                    <li>承担使用风险：软件按"原样"提供，作者不承担担保责任</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="border-t border-gray-700 pt-3">
+                <p class="text-white font-semibold mb-1">出处标注格式</p>
+                <div class="bg-gray-900/50 p-2 rounded border border-gray-700 font-mono text-xs text-gray-300">
+                  <p>基于 Bun Markdown 开发</p>
+                  <p>原作者：笨笨熊 (BenBenXiong)</p>
+                  <p>原始项目：[项目地址]</p>
+                </div>
               </div>
               
               <div class="border-t border-gray-700 pt-3">
                 <p class="text-white font-semibold mb-1">免责声明</p>
                 <ul class="text-gray-400 text-xs space-y-1 list-disc list-inside">
-                  <li>本软件按"现状"提供，不提供任何明示或暗示的保证</li>
-                  <li>使用本软件产生的任何直接或间接损失，开发者不承担责任</li>
-                  <li>用户应遵守所在地区的法律法规，合法使用本软件</li>
-                  <li>本软件仅供学习和研究使用，不得用于商业用途</li>
+                  <li>本软件按"原样"提供，不提供任何明示或暗示的担保</li>
+                  <li>作者不对因使用本软件而产生的任何直接、间接、特殊或后果性损害承担责任</li>
+                  <li>使用者应自行承担使用风险，并遵守所在地区的法律法规</li>
+                  <li>详细条款请查看项目根目录的 LICENSE 文件</li>
+                  <li class="mt-2 text-gray-300">如有疑问或需要特殊授权，请联系：
+                    <a href="mailto:shlwsh@126.com" class="text-blue-400 hover:text-blue-300 transition-colors">shlwsh@126.com</a>
+                  </li>
                 </ul>
               </div>
             </div>
