@@ -43,6 +43,14 @@
           <FolderOpen :size="15" />
         </button>
 
+        <button 
+          @click="handleAbout"
+          class="p-1.5 rounded hover:bg-[#333] transition-colors text-[#858585] hover:text-[#fff]"
+          :title="'关于'"
+        >
+          <Info :size="15" />
+        </button>
+
         <div class="relative">
             <button 
               @click="showSettings = !showSettings"
@@ -79,7 +87,20 @@
                 </div>
               </div>
         </div>
+
+        <div class="w-px h-3 bg-[#3e3e3e] mx-1"></div>
+
+        <button 
+          @click="handleExit"
+          class="p-1.5 rounded hover:bg-red-600/20 transition-colors text-[#858585] hover:text-red-400"
+          :title="'退出系统'"
+        >
+          <LogOut :size="15" />
+        </button>
     </div>
+
+    <!-- About Dialog -->
+    <AboutDialog v-model="showAbout" />
   </div>
 </template>
 
@@ -89,11 +110,12 @@ import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { 
   PanelLeft, Sun, Moon, FolderOpen, Settings, 
-  Minus, Plus 
+  Minus, Plus, Info, LogOut
 } from 'lucide-vue-next';
 import { useLayoutStore } from '../../store/layout';
 import { useAppStore } from '../../store/app';
 import { useNavStore } from '../../store/navigation';
+import AboutDialog from '../AboutDialog.vue';
 
 const { t } = useI18n();
 const layoutStore = useLayoutStore();
@@ -105,6 +127,7 @@ const { toggleSidebar } = layoutStore;
 const { theme, fileTreeFontSize, locale } = storeToRefs(appStore);
 
 const showSettings = ref(false);
+const showAbout = ref(false);
 
 const toggleTheme = () => {
     appStore.setTheme(theme.value === 'dark' ? 'light' : 'dark');
@@ -122,6 +145,28 @@ const increaseFontSize = () => {
 
 const decreaseFontSize = () => {
     if (fileTreeFontSize.value > 10) appStore.setFileTreeFontSize(fileTreeFontSize.value - 1);
+};
+
+const handleAbout = () => {
+    showAbout.value = true;
+};
+
+const handleExit = async () => {
+    try {
+        // 使用 Tauri app API 退出应用
+        const { exit } = await import('@tauri-apps/plugin-process');
+        await exit(0);
+    } catch (error) {
+        console.error('Failed to exit application:', error);
+        // 备用方案：使用 window close
+        try {
+            const { getCurrentWindow } = await import('@tauri-apps/api/window');
+            const appWindow = getCurrentWindow();
+            await appWindow.close();
+        } catch (e) {
+            console.error('Failed to close window:', e);
+        }
+    }
 };
 
 // Simple click outside directive

@@ -9,6 +9,7 @@ const port = parseInt(process.env.VITE_PORT || "1420");
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
   plugins: [vue(), tailwindcss()],
+  publicDir: 'public',
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
@@ -30,5 +31,12 @@ export default defineConfig(async () => ({
       // 3. tell vite to ignore watching `src-tauri`
       ignored: ["**/src-tauri/**"],
     },
+  },
+
+  // Vitest 配置
+  test: {
+    environment: 'happy-dom',
+    globals: true,
+    setupFiles: [],
   },
 }));

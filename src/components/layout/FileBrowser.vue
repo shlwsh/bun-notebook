@@ -246,12 +246,19 @@ const handleCreateFolder = async () => {
 const filteredFileTree = computed(() => {
   const query = searchQuery.value.toLowerCase();
   
+  // 支持的文件扩展名
+  const supportedExtensions = ['md', 'markdown', 'ts', 'tsx', 'js', 'jsx', 'txt', 'log', 'json'];
+  
   const filterNodes = (nodes: FileNode[]): FileNode[] => {
     return nodes.reduce((acc: FileNode[], node) => {
       // 1. Filter by MD only if enabled
       let isVisible = true;
       if (showMdOnly.value && !node.isDirectory) {
           isVisible = node.name.toLowerCase().endsWith('.md');
+      } else if (!node.isDirectory) {
+          // 检查是否为支持的文件类型
+          const ext = node.name.split('.').pop()?.toLowerCase();
+          isVisible = ext ? supportedExtensions.includes(ext) : false;
       }
       
       // 2. Filter by Search Query
@@ -262,17 +269,10 @@ const filteredFileTree = computed(() => {
       
       if (node.isDirectory && node.children) {
         const filteredChildren = filterNodes(node.children);
-        // Keep directory if it has matching children OR (if searching matches name AND we are not strictly filtering empty dirs)
-        // With MD filter, we strictly only want dirs that contain MDs.
-        // If checking MD only: dir is valid ONLY if filteredChildren > 0
-        // If searching: dir is valid if filteredChildren > 0 OR matchesSearch
         
         let keepDir = false;
         if (showMdOnly.value) {
             keepDir = filteredChildren.length > 0;
-            // If also searching, ensure search criteria met? 
-            // Usually search + filter = intersection. 
-            // If search matches dir name, we might want to show it? Let's say yes for now.
             if (query && matchesSearch && filteredChildren.length > 0) keepDir = true;
         } else {
             keepDir = filteredChildren.length > 0 || matchesSearch;

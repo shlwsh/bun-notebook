@@ -11,6 +11,8 @@
     "shell:default",
     "fs:default",
     "dialog:default",
+    "process:default",
+    "process:allow-exit",
     "allow-app-commands",
     "core:webview:allow-print",
     {

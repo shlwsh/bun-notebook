@@ -82,6 +82,20 @@ const messages = {
                 github: 'GitHub'
             }
         },
+        markdownToolbar: {
+            heading: 'Heading',
+            headingLevel: 'Heading {level}',
+            bold: 'Bold',
+            italic: 'Italic',
+            strikethrough: 'Strikethrough',
+            unorderedList: 'Unordered List',
+            orderedList: 'Ordered List',
+            table: 'Insert Table',
+            link: 'Insert Link',
+            image: 'Insert Image',
+            codeBlock: 'Code Block',
+            quote: 'Quote'
+        },
         menuBar: {
             file: '文件',
             openFolder: '打开文件夹...',
@@ -191,6 +205,20 @@ const messages = {
                 sepia: '护眼模式',
                 github: 'GitHub'
             }
+        },
+        markdownToolbar: {
+            heading: '标题',
+            headingLevel: '标题 {level}',
+            bold: '粗体',
+            italic: '斜体',
+            strikethrough: '删除线',
+            unorderedList: '无序列表',
+            orderedList: '有序列表',
+            table: '插入表格',
+            link: '插入链接',
+            image: '插入图片',
+            codeBlock: '代码块',
+            quote: '引用'
         },
         menuBar: {
             file: 'ファイル',
