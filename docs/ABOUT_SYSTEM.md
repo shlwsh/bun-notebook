@@ -1,8 +1,8 @@
-# 关于 Markdown 编辑器
+# 关于 MD Notebook
 
 ## 系统简介
 
-Bun Markdown 是一款专业的 Markdown 文档编辑与预览工具，基于 Tauri 2.0、Rust 和 Vue 3 构建，旨在为开发者和文档编写者提供高效、流畅的文档编辑体验。
+MD Notebook 是一款专业的 Markdown 文档编辑与预览工具，基于 Tauri 2.0、Rust 和 Vue 3 构建，旨在为开发者和文档编写者提供高效、流畅的文档编辑体验。
 
 ## 主要功能
 

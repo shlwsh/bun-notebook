@@ -1,8 +1,8 @@
 [package]
 name = "bun-codeview"
 version = "0.1.0"
-description = "Bun Markdown Editor"
-authors = ["you"]
+description = "MD Notebook - Markdown Editor"
+authors = ["笨笨熊 (BenBenXiong)"]
 license = ""
 repository = ""
 edition = "2021"

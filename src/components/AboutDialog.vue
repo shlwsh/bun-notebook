@@ -14,7 +14,7 @@
           <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
           <div class="relative z-10">
             <div class="flex items-center justify-between mb-2">
-              <h2 class="text-2xl font-bold">Markdown 编辑器</h2>
+              <h2 class="text-2xl font-bold">MD Notebook</h2>
               <button 
                 @click="closeDialog"
                 class="text-white/80 hover:text-white transition-colors p-1 hover:bg-white/10 rounded"
@@ -22,7 +22,7 @@
                 <X :size="24" />
               </button>
             </div>
-            <p class="text-blue-100 text-sm">Bun Markdown Editor - 专注于文档编辑与预览</p>
+            <p class="text-blue-100 text-sm">MD Notebook - 专注于文档编辑与预览</p>
             <div class="mt-3 flex items-center gap-2">
               <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-mono">{{ version }}</span>
             </div>
@@ -167,7 +167,7 @@
               <div class="border-t border-gray-700 pt-3">
                 <p class="text-white font-semibold mb-1">出处标注格式</p>
                 <div class="bg-gray-900/50 p-2 rounded border border-gray-700 font-mono text-xs text-gray-300">
-                  <p>基于 Bun Markdown 开发</p>
+                  <p>基于 MD Notebook 开发</p>
                   <p>原作者：笨笨熊 (BenBenXiong)</p>
                   <p>原始项目：[项目地址]</p>
                 </div>
