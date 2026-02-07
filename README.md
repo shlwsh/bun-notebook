@@ -86,12 +86,35 @@ MD Notebook 是一款基于 **Tauri 2.0**、**Rust** 和 **Vue 3** 构建的高�
 
 ## 🚀 发布与部署
 
-### 构建命令
+### 本地构建
 
 - **快速构建**: `bun tauri build` - 直接构建 Tauri 应用
 - **完整部署**: `bun deploy` - 运行完整的部署流程
 - **Windows 批处理**: 双击 `scripts/deploy.bat` 执行部署
 - **PowerShell 脚本**: `powershell -ExecutionPolicy Bypass -File ./scripts/deploy.ps1`
+
+### GitHub Actions 自动化发布
+
+项目已配置 GitHub Actions，支持自动化跨平台构建和发布：
+
+#### 快速发布
+
+```bash
+# 1. 更新版本号
+bun run upgrade "发布 v1.0.0"
+
+# 2. 创建并推送 tag
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+#### 支持的平台
+
+- ✅ macOS (Intel 和 Apple Silicon)
+- ✅ Windows (x64)
+- ✅ Linux (x64)
+
+详细说明请查看 [GitHub Actions 使用指南](docs/GITHUB_ACTIONS_GUIDE.md)。
 
 ### 部署流程
 
@@ -194,6 +217,20 @@ bun run upgrade "版本变更内容"
 bun run upgrade "添加新功能"
 bun run upgrade "修复bug"
 ```
+
+### 创建发布 Tag
+
+```bash
+bun run mytag
+```
+
+此命令会：
+1. 自动读取当前版本号
+2. 创建对应的 Git tag（如 `v1.0.20260206.007`）
+3. 推送 tag 到 GitHub
+4. 触发 GitHub Actions 自动构建和发布
+
+详细说明请查看 [MyTag 使用指南](docs/MYTAG_USAGE.md)。
 
 版本号会自动显示在状态栏右侧，点击可查看完整更新日志。
 
