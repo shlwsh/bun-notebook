@@ -18,18 +18,22 @@ jobs:
           # macOS Intel (x64)
           - platform: 'macos-latest'
             args: ''
+            rust-target: ''
             
           # macOS Apple Silicon (ARM64)
           - platform: 'macos-latest'
             args: '--target aarch64-apple-darwin'
+            rust-target: 'aarch64-apple-darwin'
             
           # Linux x64
           - platform: 'ubuntu-22.04'
             args: ''
+            rust-target: ''
             
           # Windows x64
           - platform: 'windows-latest'
             args: ''
+            rust-target: ''
 
     runs-on: ${{ matrix.platform }}
     
@@ -62,7 +66,11 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
-          targets: ${{ matrix.args && contains(matrix.args, '--target') && split(matrix.args, ' ')[1] || '' }}
+          targets: ${{ matrix.rust-target }}
+
+      - name: 添加 Rust target（如果需要）
+        if: matrix.rust-target != ''
+        run: rustup target add ${{ matrix.rust-target }}
 
       - name: 缓存 Rust 依赖
         uses: swatinem/rust-cache@v2
