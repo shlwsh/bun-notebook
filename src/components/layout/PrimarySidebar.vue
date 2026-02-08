@@ -4,7 +4,7 @@
       <!-- Sidebar Header -->
       <div class="h-9 flex items-center justify-between px-4 border-b border-[#2b2b2b] bg-[#252525]">
         <span class="text-xs font-semibold text-[#cccccc] uppercase tracking-wider">
-          {{ activeView === 'search' ? $t('activityBar.search') : $t('activityBar.explorer') }}
+          {{ activeView === 'search' ? $t('activityBar.search') : activeView === 'outline' ? $t('activityBar.outline') : $t('activityBar.explorer') }}
         </span>
         <button
           @click="$emit('toggle')"
@@ -18,6 +18,7 @@
       <div class="flex-1 overflow-hidden">
         <FileBrowser v-if="activeView === 'files'" />
         <FileSearch v-else-if="activeView === 'search'" />
+        <OutlineView v-else-if="activeView === 'outline'" />
       </div>
     </div>
   </div>
@@ -30,6 +31,7 @@ import { useNavStore } from '../../store/navigation';
 import { X } from 'lucide-vue-next';
 import FileBrowser from './FileBrowser.vue';
 import FileSearch from './FileSearch.vue';
+import OutlineView from './OutlineView.vue';
 
 defineEmits(['toggle']);
 

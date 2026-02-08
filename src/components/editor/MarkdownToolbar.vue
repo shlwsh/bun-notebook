@@ -10,7 +10,7 @@
         <Heading :size="16" />
         <ChevronDown :size="12" class="opacity-50" />
       </button>
-      
+
       <!-- Heading Dropdown Menu -->
       <div
         v-if="showHeadingMenu"
@@ -35,7 +35,7 @@
     <button
       @click="handleBold"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
-      :title="`${$t('markdownToolbar.bold')} (Ctrl+B)`"
+      :title="`${$t('markdownToolbar.bold')} (${modKey}+B)`"
     >
       <Bold :size="16" />
     </button>
@@ -44,7 +44,7 @@
     <button
       @click="handleItalic"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
-      :title="`${$t('markdownToolbar.italic')} (Ctrl+I)`"
+      :title="`${$t('markdownToolbar.italic')} (${modKey}+I)`"
     >
       <Italic :size="16" />
     </button>
@@ -53,7 +53,7 @@
     <button
       @click="handleStrikethrough"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
-      :title="$t('markdownToolbar.strikethrough')"
+      :title="`${$t('markdownToolbar.strikethrough')} (${modKey}+Shift+X)`"
     >
       <Strikethrough :size="16" />
     </button>
@@ -78,6 +78,15 @@
       <ListOrdered :size="16" />
     </button>
 
+    <!-- Task List -->
+    <button
+      @click="handleTaskList"
+      class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
+      :title="$t('markdownToolbar.taskList')"
+    >
+      <CheckSquare :size="16" />
+    </button>
+
     <div class="w-px h-5 bg-[#3e3e3e]"></div>
 
     <!-- Table -->
@@ -93,7 +102,7 @@
     <button
       @click="handleLink"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
-      :title="$t('markdownToolbar.link')"
+      :title="`${$t('markdownToolbar.link')} (${modKey}+K)`"
     >
       <Link :size="16" />
     </button>
@@ -111,7 +120,7 @@
     <button
       @click="handleCodeBlock"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
-      :title="$t('markdownToolbar.codeBlock')"
+      :title="`${$t('markdownToolbar.codeBlock')} (${modKey}+Shift+K)`"
     >
       <Code :size="16" />
     </button>
@@ -124,6 +133,35 @@
     >
       <Quote :size="16" />
     </button>
+
+    <!-- Horizontal Rule -->
+    <button
+      @click="handleHorizontalRule"
+      class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
+      :title="$t('markdownToolbar.horizontalRule')"
+    >
+      <Minus :size="16" />
+    </button>
+
+    <div class="w-px h-5 bg-[#3e3e3e]"></div>
+
+    <!-- Undo -->
+    <button
+      @click="handleUndo"
+      class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
+      :title="`${$t('markdownToolbar.undo')} (${modKey}+Z)`"
+    >
+      <Undo2 :size="16" />
+    </button>
+
+    <!-- Redo -->
+    <button
+      @click="handleRedo"
+      class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
+      :title="`${$t('markdownToolbar.redo')} (${modKey}+Shift+Z)`"
+    >
+      <Redo2 :size="16" />
+    </button>
   </div>
 </template>
 
@@ -133,9 +171,11 @@ import { useI18n } from 'vue-i18n';
 import {
   Heading, Bold, Italic, Strikethrough,
   List, ListOrdered, Table, Link,
-  Image as ImageIcon, Code, Quote, ChevronDown
+  Image as ImageIcon, Code, Quote, ChevronDown,
+  CheckSquare, Minus, Undo2, Redo2
 } from 'lucide-vue-next';
 import { EditorView } from '@codemirror/view';
+import { undo, redo } from '@codemirror/commands';
 import {
   wrapSelection,
   insertHeading,
@@ -144,7 +184,9 @@ import {
   insertLink,
   insertImage,
   insertCodeBlock,
-  insertQuote
+  insertQuote,
+  insertHorizontalRule,
+  insertTaskList
 } from '../../utils/markdownOperations';
 
 const { t } = useI18n();
@@ -154,6 +196,9 @@ const props = defineProps<{
 }>();
 
 const showHeadingMenu = ref(false);
+
+// 检测平台
+const modKey = navigator.platform.includes('Mac') ? 'Cmd' : 'Ctrl';
 
 const handleHeading = (level: number) => {
   if (props.editorView) {
@@ -192,6 +237,12 @@ const handleOrderedList = () => {
   }
 };
 
+const handleTaskList = () => {
+  if (props.editorView) {
+    insertTaskList(props.editorView);
+  }
+};
+
 const handleTable = () => {
   if (props.editorView) {
     insertTable(props.editorView, 3, 3);
@@ -219,6 +270,24 @@ const handleCodeBlock = () => {
 const handleQuote = () => {
   if (props.editorView) {
     insertQuote(props.editorView);
+  }
+};
+
+const handleHorizontalRule = () => {
+  if (props.editorView) {
+    insertHorizontalRule(props.editorView);
+  }
+};
+
+const handleUndo = () => {
+  if (props.editorView) {
+    undo(props.editorView);
+  }
+};
+
+const handleRedo = () => {
+  if (props.editorView) {
+    redo(props.editorView);
   }
 };
 

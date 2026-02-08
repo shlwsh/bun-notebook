@@ -8,14 +8,28 @@ export interface Tab {
     closable: boolean;
 }
 
+export interface HeadingItem {
+    level: number;
+    text: string;
+    line: number;
+}
+
 export const useNavStore = defineStore('navigation', {
     state: () => ({
-        activeView: 'files' as 'files' | 'search',
+        activeView: 'files' as 'files' | 'search' | 'outline',
         tabs: [] as Tab[],
         activeTabId: '',
+        // 当前活动文件的字数统计
+        activeFileStats: {
+            characters: 0,
+            words: 0,
+            lines: 0,
+        },
+        // 当前活动文件的标题大纲
+        headings: [] as HeadingItem[],
     }),
     actions: {
-        setActiveView(view: 'files' | 'search') {
+        setActiveView(view: 'files' | 'search' | 'outline') {
             this.activeView = view;
         },
         openTab(tab: Omit<Tab, 'closable'> & { closable?: boolean }) {
@@ -44,6 +58,12 @@ export const useNavStore = defineStore('navigation', {
         closeAllTabs() {
             this.tabs = [];
             this.activeTabId = '';
-        }
+        },
+        updateFileStats(stats: { characters: number; words: number; lines: number }) {
+            this.activeFileStats = stats;
+        },
+        updateHeadings(headings: HeadingItem[]) {
+            this.headings = headings;
+        },
     }
 });

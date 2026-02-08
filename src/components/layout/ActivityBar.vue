@@ -33,7 +33,7 @@ import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useNavStore } from '../../store/navigation';
-import { FileText, Files, Search } from 'lucide-vue-next';
+import { FileText, Files, Search, ListTree } from 'lucide-vue-next';
 
 const { t } = useI18n();
 const navStore = useNavStore();
@@ -42,6 +42,7 @@ const { activeView } = storeToRefs(navStore);
 const activityItems = computed(() => [
   { id: 'files', label: t('activityBar.explorer'), icon: Files },
   { id: 'search', label: t('activityBar.search'), icon: Search },
+  { id: 'outline', label: t('activityBar.outline'), icon: ListTree },
 ]);
 
 const handleActivityClick = (viewId: string) => {

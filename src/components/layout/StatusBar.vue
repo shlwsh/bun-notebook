@@ -34,6 +34,19 @@
 
     <!-- Right Section -->
     <div class="flex items-center gap-3">
+      <!-- Word Count Stats -->
+      <div
+        v-if="activeFileStats.characters > 0"
+        class="flex items-center gap-2 opacity-75 hover:bg-white/10 px-1.5 py-0.5 rounded transition-colors"
+        :title="`${activeFileStats.lines} 行 · ${activeFileStats.words} 字 · ${activeFileStats.characters} 字符`"
+      >
+        <span>{{ activeFileStats.lines }} 行</span>
+        <span>{{ activeFileStats.words }} 字</span>
+        <span>{{ activeFileStats.characters }} 字符</span>
+      </div>
+
+      <!-- Separator -->
+      <div v-if="activeFileStats.characters > 0" class="h-3 w-px bg-white/20"></div>
       <!-- Theme Toggle -->
       <button
         @click="toggleTheme"
@@ -140,7 +153,7 @@ interface VersionInfo {
 const appStore = useAppStore();
 const navStore = useNavStore();
 const { projectPath, theme, locale } = storeToRefs(appStore);
-const { tabs } = storeToRefs(navStore);
+const { tabs, activeFileStats } = storeToRefs(navStore);
 
 const version = ref('Ver:1.0.20260206.002');
 const changelog = ref<ChangelogEntry[]>([]);

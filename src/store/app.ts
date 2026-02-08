@@ -12,6 +12,9 @@ export const useAppStore = defineStore('app', {
         theme: 'dark' as 'dark' | 'light',
         fileTreeFontSize: 13 as number,
         locale: 'en' as 'en' | 'zh' | 'ru' | 'ja' | 'fr' | 'de',
+        // 自动保存配置
+        autoSave: true,
+        autoSaveDelay: 3000, // 毫秒
     }),
 
     actions: {
@@ -41,7 +44,15 @@ export const useAppStore = defineStore('app', {
         setProjectPath(path: string) {
             this.projectPath = path;
         },
-        // ... existing actions
+
+        setAutoSave(enabled: boolean) {
+            this.autoSave = enabled;
+        },
+
+        setAutoSaveDelay(delay: number) {
+            this.autoSaveDelay = delay;
+        },
+
         async loadRecentProjects() {
             try {
                 const projects: string[] = await invoke('get_project_history');

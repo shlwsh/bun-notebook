@@ -282,6 +282,24 @@ const messages = {
             fontSize: 'Размер шрифта',
             language: 'Язык'
         },
+        markdownToolbar: {
+            heading: 'Заголовок',
+            headingLevel: 'Заголовок {level}',
+            bold: 'Жирный',
+            italic: 'Курсив',
+            strikethrough: 'Зачёркнутый',
+            unorderedList: 'Маркированный список',
+            orderedList: 'Нумерованный список',
+            taskList: 'Список задач',
+            table: 'Вставить таблицу',
+            link: 'Вставить ссылку',
+            image: 'Вставить изображение',
+            codeBlock: 'Блок кода',
+            quote: 'Цитата',
+            horizontalRule: 'Горизонтальная линия',
+            undo: 'Отменить',
+            redo: 'Повторить'
+        },
         explorer: {
             title: 'Проводник',
             newFile: 'Новый файл',
@@ -397,6 +415,24 @@ const messages = {
             settings: '設定',
             fontSize: 'フォントサイズ',
             language: '言語'
+        },
+        markdownToolbar: {
+            heading: '見出し',
+            headingLevel: '見出し {level}',
+            bold: '太字',
+            italic: '斜体',
+            strikethrough: '取り消し線',
+            unorderedList: '箇条書きリスト',
+            orderedList: '番号付きリスト',
+            taskList: 'タスクリスト',
+            table: 'テーブルを挿入',
+            link: 'リンクを挿入',
+            image: '画像を挿入',
+            codeBlock: 'コードブロック',
+            quote: '引用',
+            horizontalRule: '水平線',
+            undo: '元に戻す',
+            redo: 'やり直す'
         },
         explorer: {
             title: 'エクスプローラー',
@@ -514,6 +550,24 @@ const messages = {
             fontSize: 'Taille de la police',
             language: 'Langue'
         },
+        markdownToolbar: {
+            heading: 'Titre',
+            headingLevel: 'Titre {level}',
+            bold: 'Gras',
+            italic: 'Italique',
+            strikethrough: 'Barré',
+            unorderedList: 'Liste à puces',
+            orderedList: 'Liste numérotée',
+            taskList: 'Liste de tâches',
+            table: 'Insérer un tableau',
+            link: 'Insérer un lien',
+            image: 'Insérer une image',
+            codeBlock: 'Bloc de code',
+            quote: 'Citation',
+            horizontalRule: 'Ligne horizontale',
+            undo: 'Annuler',
+            redo: 'Rétablir'
+        },
         explorer: {
             title: 'Explorateur',
             newFile: 'Nouveau fichier',
@@ -630,6 +684,24 @@ const messages = {
             fontSize: 'Schriftgröße',
             language: 'Sprache'
         },
+        markdownToolbar: {
+            heading: 'Überschrift',
+            headingLevel: 'Überschrift {level}',
+            bold: 'Fett',
+            italic: 'Kursiv',
+            strikethrough: 'Durchgestrichen',
+            unorderedList: 'Aufzählungsliste',
+            orderedList: 'Nummerierte Liste',
+            taskList: 'Aufgabenliste',
+            table: 'Tabelle einfügen',
+            link: 'Link einfügen',
+            image: 'Bild einfügen',
+            codeBlock: 'Codeblock',
+            quote: 'Zitat',
+            horizontalRule: 'Horizontale Linie',
+            undo: 'Rückgängig',
+            redo: 'Wiederholen'
+        },
         explorer: {
             title: 'Explorer',
             newFile: 'Neue Datei',
@@ -705,32 +777,32 @@ const messages = {
             }
         },
         menuBar: {
-            file: 'File',
-            openFolder: 'Open Folder...',
-            refresh: 'Refresh',
-            view: 'View',
-            toggleSidebar: 'Toggle Sidebar',
-            help: 'Help',
-            about: 'About'
+            file: 'Datei',
+            openFolder: 'Ordner öffnen...',
+            refresh: 'Aktualisieren',
+            view: 'Ansicht',
+            toggleSidebar: 'Seitenleiste umschalten',
+            help: 'Hilfe',
+            about: 'Über'
         },
         dialogs: {
             aboutTitle: 'MD Notebook v0.1.0',
-            aboutMessage: 'Focused on MD file viewing and editing',
-            confirmDelete: 'Are you sure you want to delete {name}?'
+            aboutMessage: 'Fokussiert auf MD-Datei-Anzeige und -Bearbeitung',
+            confirmDelete: 'Sind Sie sicher, dass Sie {name} löschen möchten?'
         },
         errors: {
-            componentError: 'Component Render Error',
-            retry: 'Retry',
-            createFail: 'Create failed: {error}',
-            createFolderFail: 'Create folder failed: {error}',
-            loadFail: 'Load failed: {error}',
-            renameFail: 'Rename failed: {error}',
-            pasteFail: 'Paste failed: {error}',
-            duplicateFail: 'Duplicate failed: {error}',
-            deleteFail: 'Delete failed: {error}',
-            exportSuccess: '🎉 Successfully exported to: {path}',
-            exportFail: 'Export failed: {error}',
-            contentNotFound: 'Content not found'
+            componentError: 'Komponenten-Renderfehler',
+            retry: 'Wiederholen',
+            createFail: 'Erstellen fehlgeschlagen: {error}',
+            createFolderFail: 'Ordner erstellen fehlgeschlagen: {error}',
+            loadFail: 'Laden fehlgeschlagen: {error}',
+            renameFail: 'Umbenennen fehlgeschlagen: {error}',
+            pasteFail: 'Einfügen fehlgeschlagen: {error}',
+            duplicateFail: 'Duplizieren fehlgeschlagen: {error}',
+            deleteFail: 'Löschen fehlgeschlagen: {error}',
+            exportSuccess: '🎉 Erfolgreich exportiert nach: {path}',
+            exportFail: 'Export fehlgeschlagen: {error}',
+            contentNotFound: 'Inhalt nicht gefunden'
         }
     }
 };

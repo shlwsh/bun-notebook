@@ -10,7 +10,7 @@ export function wrapSelection(view: EditorView, prefix: string, suffix?: string)
   const actualSuffix = suffix ?? prefix;
   const selection = view.state.selection.main;
   const selectedText = view.state.doc.sliceString(selection.from, selection.to);
-  
+
   if (selectedText) {
     // 如果有选中文本，包裹它
     view.dispatch({
@@ -35,7 +35,7 @@ export function wrapSelection(view: EditorView, prefix: string, suffix?: string)
       }
     });
   }
-  
+
   view.focus();
 }
 
@@ -48,11 +48,11 @@ export function insertHeading(view: EditorView, level: number) {
   const selection = view.state.selection.main;
   const line = view.state.doc.lineAt(selection.from);
   const lineText = line.text;
-  
+
   // 移除现有的标题标记
   const cleanText = lineText.replace(/^#+\s*/, '');
   const prefix = '#'.repeat(level) + ' ';
-  
+
   view.dispatch({
     changes: {
       from: line.from,
@@ -63,7 +63,7 @@ export function insertHeading(view: EditorView, level: number) {
       anchor: line.from + prefix.length + cleanText.length
     }
   });
-  
+
   view.focus();
 }
 
@@ -76,7 +76,7 @@ export function insertList(view: EditorView, ordered: boolean) {
   const selection = view.state.selection.main;
   const line = view.state.doc.lineAt(selection.from);
   const lineText = line.text.trim();
-  
+
   let newText: string;
   if (ordered) {
     // 有序列表
@@ -97,7 +97,7 @@ export function insertList(view: EditorView, ordered: boolean) {
       newText = '- ' + lineText;
     }
   }
-  
+
   view.dispatch({
     changes: {
       from: line.from,
@@ -108,7 +108,7 @@ export function insertList(view: EditorView, ordered: boolean) {
       anchor: line.from + newText.length
     }
   });
-  
+
   view.focus();
 }
 
@@ -120,23 +120,23 @@ export function insertList(view: EditorView, ordered: boolean) {
  */
 export function insertTable(view: EditorView, rows: number = 3, cols: number = 3) {
   const selection = view.state.selection.main;
-  
+
   // 生成表格
   let table = '\n';
-  
+
   // 表头
   table += '|' + ' Header |'.repeat(cols) + '\n';
-  
+
   // 分隔行
   table += '|' + ' ------ |'.repeat(cols) + '\n';
-  
+
   // 数据行
   for (let i = 0; i < rows - 1; i++) {
     table += '|' + ' Cell   |'.repeat(cols) + '\n';
   }
-  
+
   table += '\n';
-  
+
   view.dispatch({
     changes: {
       from: selection.from,
@@ -146,7 +146,7 @@ export function insertTable(view: EditorView, rows: number = 3, cols: number = 3
       anchor: selection.from + table.length
     }
   });
-  
+
   view.focus();
 }
 
@@ -159,11 +159,11 @@ export function insertTable(view: EditorView, rows: number = 3, cols: number = 3
 export function insertLink(view: EditorView, text?: string, url?: string) {
   const selection = view.state.selection.main;
   const selectedText = view.state.doc.sliceString(selection.from, selection.to);
-  
+
   const linkText = text || selectedText || '链接文本';
   const linkUrl = url || 'https://';
   const markdown = `[${linkText}](${linkUrl})`;
-  
+
   view.dispatch({
     changes: {
       from: selection.from,
@@ -174,7 +174,7 @@ export function insertLink(view: EditorView, text?: string, url?: string) {
       anchor: selection.from + markdown.length
     }
   });
-  
+
   view.focus();
 }
 
@@ -186,11 +186,11 @@ export function insertLink(view: EditorView, text?: string, url?: string) {
  */
 export function insertImage(view: EditorView, alt?: string, url?: string) {
   const selection = view.state.selection.main;
-  
+
   const imageAlt = alt || '图片描述';
   const imageUrl = url || 'image.png';
   const markdown = `![${imageAlt}](${imageUrl})`;
-  
+
   view.dispatch({
     changes: {
       from: selection.from,
@@ -200,7 +200,7 @@ export function insertImage(view: EditorView, alt?: string, url?: string) {
       anchor: selection.from + markdown.length
     }
   });
-  
+
   view.focus();
 }
 
@@ -212,9 +212,9 @@ export function insertImage(view: EditorView, alt?: string, url?: string) {
 export function insertCodeBlock(view: EditorView, language: string = '') {
   const selection = view.state.selection.main;
   const selectedText = view.state.doc.sliceString(selection.from, selection.to);
-  
+
   const codeBlock = `\n\`\`\`${language}\n${selectedText || '// 代码'}\n\`\`\`\n`;
-  
+
   view.dispatch({
     changes: {
       from: selection.from,
@@ -225,7 +225,7 @@ export function insertCodeBlock(view: EditorView, language: string = '') {
       anchor: selection.from + 4 + language.length + 1
     }
   });
-  
+
   view.focus();
 }
 
@@ -237,7 +237,7 @@ export function insertQuote(view: EditorView) {
   const selection = view.state.selection.main;
   const line = view.state.doc.lineAt(selection.from);
   const lineText = line.text;
-  
+
   let newText: string;
   if (lineText.startsWith('> ')) {
     // 如果已经是引用，移除标记
@@ -246,7 +246,7 @@ export function insertQuote(view: EditorView) {
     // 添加引用标记
     newText = '> ' + lineText;
   }
-  
+
   view.dispatch({
     changes: {
       from: line.from,
@@ -257,7 +257,7 @@ export function insertQuote(view: EditorView) {
       anchor: line.from + newText.length
     }
   });
-  
+
   view.focus();
 }
 
@@ -268,7 +268,7 @@ export function insertQuote(view: EditorView) {
 export function insertHorizontalRule(view: EditorView) {
   const selection = view.state.selection.main;
   const line = view.state.doc.lineAt(selection.from);
-  
+
   view.dispatch({
     changes: {
       from: line.to,
@@ -278,6 +278,41 @@ export function insertHorizontalRule(view: EditorView) {
       anchor: line.to + 6
     }
   });
-  
+
+  view.focus();
+}
+
+/**
+ * 插入任务列表
+ * @param view CodeMirror 编辑器视图
+ */
+export function insertTaskList(view: EditorView) {
+  const selection = view.state.selection.main;
+  const line = view.state.doc.lineAt(selection.from);
+  const lineText = line.text;
+
+  let newText: string;
+  if (/^- \[[ x]\] /.test(lineText)) {
+    // 已经是任务列表，移除标记
+    newText = lineText.replace(/^- \[[ x]\] /, '');
+  } else if (/^[-*+] /.test(lineText)) {
+    // 是普通列表，转为任务列表
+    newText = lineText.replace(/^[-*+] /, '- [ ] ');
+  } else {
+    // 添加任务列表标记
+    newText = '- [ ] ' + lineText;
+  }
+
+  view.dispatch({
+    changes: {
+      from: line.from,
+      to: line.to,
+      insert: newText
+    },
+    selection: {
+      anchor: line.from + newText.length
+    }
+  });
+
   view.focus();
 }
