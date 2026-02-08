@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat:*)",
+      "Bash(/tmp/write_fileviewer_part2.py:*)",
+      "Bash(python3:*)",
+      "Bash(/tmp/write_fileviewer_part3.py:*)",
+      "Bash(/tmp/write_fileviewer_part4.py:*)",
+      "Bash(npx vue-tsc:*)",
+      "Bash(bun test:*)"
+    ]
+  }
+}
