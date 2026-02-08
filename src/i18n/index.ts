@@ -43,7 +43,12 @@ const messages = {
         },
         activityBar: {
             explorer: 'Explorer',
-            search: 'Search'
+            search: 'Search',
+            outline: 'Outline'
+        },
+        outline: {
+            title: 'OUTLINE',
+            empty: 'No headings found in current file'
         },
         search: {
             placeholder: 'Search in files...',
@@ -66,6 +71,7 @@ const messages = {
             save: 'Save',
             saving: 'Saving...',
             preview: 'Preview',
+            split: 'Split',
             raw: 'Raw',
             theme: 'Theme',
             export: 'Export',
@@ -90,11 +96,15 @@ const messages = {
             strikethrough: 'Strikethrough',
             unorderedList: 'Unordered List',
             orderedList: 'Ordered List',
+            taskList: 'Task List',
             table: 'Insert Table',
             link: 'Insert Link',
             image: 'Insert Image',
             codeBlock: 'Code Block',
-            quote: 'Quote'
+            quote: 'Quote',
+            horizontalRule: 'Horizontal Rule',
+            undo: 'Undo',
+            redo: 'Redo'
         },
         menuBar: {
             file: '文件',
@@ -167,7 +177,12 @@ const messages = {
         },
         activityBar: {
             explorer: '资源管理器',
-            search: '全文搜索'
+            search: '全文搜索',
+            outline: '大纲'
+        },
+        outline: {
+            title: '大纲',
+            empty: '当前文件中没有标题'
         },
         search: {
             placeholder: '搜索项目中的内容...',
@@ -190,6 +205,7 @@ const messages = {
             save: '保存更改',
             saving: '正在保存...',
             preview: '预览',
+            split: '分屏',
             raw: '源码',
             theme: '主题',
             export: '导出',
@@ -214,39 +230,43 @@ const messages = {
             strikethrough: '删除线',
             unorderedList: '无序列表',
             orderedList: '有序列表',
+            taskList: '任务列表',
             table: '插入表格',
             link: '插入链接',
             image: '插入图片',
             codeBlock: '代码块',
-            quote: '引用'
+            quote: '引用',
+            horizontalRule: '水平线',
+            undo: '撤销',
+            redo: '重做'
         },
         menuBar: {
-            file: 'ファイル',
-            openFolder: 'フォルダを開く...',
-            refresh: '更新',
-            view: '表示',
-            toggleSidebar: 'サイドバーの切り替え',
-            help: 'ヘルプ',
-            about: '詳細'
+            file: '文件',
+            openFolder: '打开文件夹...',
+            refresh: '刷新',
+            view: '查看',
+            toggleSidebar: '切换侧边栏',
+            help: '帮助',
+            about: '关于'
         },
         dialogs: {
             aboutTitle: 'MD Notebook v0.1.0',
-            aboutMessage: 'MDファイルの閲覧と編集に特化',
-            confirmDelete: '{name} を削除してもよろしいですか？'
+            aboutMessage: '专注于 Markdown 文件的查看和编辑',
+            confirmDelete: '确定要删除 {name} 吗？'
         },
         errors: {
-            componentError: 'コンポーネントのレンダリングエラー',
-            retry: '再試行',
-            createFail: '作成失敗: {error}',
-            createFolderFail: 'フォルダ作成失敗: {error}',
-            loadFail: '読み込み失敗: {error}',
-            renameFail: '名前変更失敗: {error}',
-            pasteFail: '貼り付け失敗: {error}',
-            duplicateFail: '複製失敗: {error}',
-            deleteFail: '削除失敗: {error}',
-            exportSuccess: '🎉 エクスポート成功: {path}',
-            exportFail: 'エクスポート失敗: {error}',
-            contentNotFound: 'コンテンツが見つかりません'
+            componentError: '组件渲染错误',
+            retry: '重试',
+            createFail: '创建失败: {error}',
+            createFolderFail: '创建文件夹失败: {error}',
+            loadFail: '加载失败: {error}',
+            renameFail: '重命名失败: {error}',
+            pasteFail: '粘贴失败: {error}',
+            duplicateFail: '复制失败: {error}',
+            deleteFail: '删除失败: {error}',
+            exportSuccess: '🎉 导出成功: {path}',
+            exportFail: '导出失败: {error}',
+            contentNotFound: '无法找到文档内容'
         }
     },
     ru: {
@@ -291,7 +311,12 @@ const messages = {
         },
         activityBar: {
             explorer: 'Проводник',
-            search: 'Поиск'
+            search: 'Поиск',
+            outline: 'Структура'
+        },
+        outline: {
+            title: 'СТРУКТУРА',
+            empty: 'Заголовки не найдены'
         },
         search: {
             placeholder: 'Поиск в файлах...',
@@ -314,6 +339,7 @@ const messages = {
             save: 'Сохранить',
             saving: 'Сохранение...',
             preview: 'Просмотр',
+            split: 'Разделить',
             raw: 'Код',
             theme: 'Тема',
             export: 'Экспорт',
@@ -401,7 +427,12 @@ const messages = {
         },
         activityBar: {
             explorer: 'エクスプローラー',
-            search: '検索'
+            search: '検索',
+            outline: 'アウトライン'
+        },
+        outline: {
+            title: 'アウトライン',
+            empty: '見出しが見つかりません'
         },
         search: {
             placeholder: 'ファイルを検索...',
@@ -424,6 +455,7 @@ const messages = {
             save: '保存',
             saving: '保存中...',
             preview: 'プレビュー',
+            split: '分割',
             raw: 'ソース',
             theme: 'テーマ',
             export: 'エクスポート',
@@ -511,7 +543,12 @@ const messages = {
         },
         activityBar: {
             explorer: 'Explorateur',
-            search: 'Recherche'
+            search: 'Recherche',
+            outline: 'Plan'
+        },
+        outline: {
+            title: 'PLAN',
+            empty: 'Aucun titre trouvé'
         },
         search: {
             placeholder: 'Rechercher dans les fichiers...',
@@ -534,6 +571,7 @@ const messages = {
             save: 'Enregistrer',
             saving: 'Enregistrement...',
             preview: 'Aperçu',
+            split: 'Diviser',
             raw: 'Code',
             theme: 'Thème',
             export: 'Exporter',
@@ -621,7 +659,12 @@ const messages = {
         },
         activityBar: {
             explorer: 'Explorer',
-            search: 'Suche'
+            search: 'Suche',
+            outline: 'Gliederung'
+        },
+        outline: {
+            title: 'GLIEDERUNG',
+            empty: 'Keine Überschriften gefunden'
         },
         search: {
             placeholder: 'In Dateien suchen...',
@@ -644,6 +687,7 @@ const messages = {
             save: 'Speichern',
             saving: 'Speichert...',
             preview: 'Vorschau',
+            split: 'Teilen',
             raw: 'Code',
             theme: 'Thema',
             export: 'Exportieren',
