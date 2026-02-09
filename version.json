@@ -1,6 +1,11 @@
 {
-  "version": "Ver:1.0.20260206.007",
+  "version": "Ver:1.0.20260210.001",
   "changelog": [
+    {
+      "version": "Ver:1.0.20260210.001",
+      "date": "2026-02-09",
+      "changes": "修复 Tauri 开发环境配置，支持 bun run dev 一键启动"
+    },
     {
       "version": "Ver:1.0.20260206.007",
       "date": "2026-02-06",
