@@ -78,9 +78,10 @@ inclusion: always
 - **Rustfmt** - Rust 代码格式化（配置在 `rustfmt.toml`）
 
 ### 测试框架
-- **Vitest 4+** - 前端单元测试和集成测试
+- **Vitest 4+** - 前端单元测试
 - **@testing-library/vue** - Vue 组件测试
 - **Happy-DOM/JSDOM** - DOM 环境模拟
+- **Playwright** - 端到端（E2E）和集成测试（必须）
 
 ## 技术栈使用规范
 

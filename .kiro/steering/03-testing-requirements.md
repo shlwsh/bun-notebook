@@ -11,9 +11,10 @@ inclusion: always
 ## 前端测试要求
 
 ### 测试框架
-- 使用 **Vitest** 作为测试运行器
+- 使用 **Vitest** 作为单元测试运行器
 - 使用 **@testing-library/vue** 进行组件测试
 - 使用 **Happy-DOM** 或 **JSDOM** 模拟浏览器环境
+- 使用 **Playwright** 进行端到端（E2E）和集成测试（必须）
 
 ### 测试覆盖范围
 
@@ -81,11 +82,38 @@ describe('FileViewer', () => {
 })
 ```
 
+#### 4. 集成测试（必须）
+- 所有集成测试必须使用 **Playwright** 进行
+- 测试文件放在 `e2e/` 目录
+- 测试文件命名：`*.spec.ts`
+- 测试完整的用户流程和功能交互
+
+**示例：**
+```typescript
+// e2e/file-operations.spec.ts
+import { test, expect } from '@playwright/test'
+
+test.describe('文件操作功能', () => {
+  test('应该能够打开和查看文件', async ({ page }) => {
+    await page.goto('/')
+    
+    // 点击文件浏览器
+    await page.click('[data-testid="file-explorer"]')
+    
+    // 选择文件
+    await page.click('[data-testid="file-item-readme"]')
+    
+    // 验证文件内容显示
+    await expect(page.locator('[data-testid="file-content"]')).toBeVisible()
+  })
+})
+```
+
 ### 测试命令
 
-**使用 Bun 运行测试（必须）：**
+**单元测试（Vitest）：**
 ```bash
-# 运行所有测试
+# 运行所有单元测试
 bun test
 
 # 运行测试并生成覆盖率报告
@@ -98,11 +126,34 @@ bun test --watch
 bun test src/utils/fileIcons.test.ts
 ```
 
+**集成测试（Playwright - 必须）：**
+```bash
+# 运行所有 E2E 测试
+bun run test:e2e
+
+# 运行测试（带 UI 界面）
+bun run test:e2e:ui
+
+# 运行特定浏览器的测试
+bun run test:e2e --project=chromium
+bun run test:e2e --project=firefox
+
+# 调试模式运行测试
+bun run test:e2e --debug
+
+# 生成测试报告
+bun run test:e2e --reporter=html
+
+# 运行特定测试文件
+bun run test:e2e e2e/file-operations.spec.ts
+```
+
 **禁止使用：**
 ```bash
 # ❌ 不要使用 npm
 npm test
 npm run test
+npx playwright test
 ```
 
 ## 后端测试要求
@@ -147,26 +198,36 @@ cargo test -- --nocapture
 ## 测试文件组织
 
 ```
+项目根目录/
+├── e2e/                           # Playwright E2E 测试（必须）
+│   ├── file-operations.spec.ts   # 文件操作集成测试
+│   ├── editor.spec.ts            # 编辑器功能集成测试
+│   ├── navigation.spec.ts        # 导航功能集成测试
+│   └── knowledge-base.spec.ts    # 知识库功能集成测试
+├── playwright.config.ts          # Playwright 配置文件
+├── playwright-report/            # 测试报告（自动生成）
+└── test-results/                 # 测试结果（自动生成）
+
 src/
 ├── utils/
 │   ├── fileIcons.ts
-│   └── fileIcons.test.ts          # 工具函数测试
+│   └── fileIcons.test.ts         # 工具函数单元测试
 ├── store/
 │   ├── app.ts
-│   └── app.test.ts                # Store 测试
+│   └── app.test.ts               # Store 单元测试
 ├── components/
 │   ├── FileViewer.vue
-│   └── FileViewer.test.ts         # 组件测试
+│   └── FileViewer.test.ts        # 组件单元测试
 └── tests/
-    └── export.test.ts             # 集成测试
+    └── export.test.ts            # 其他单元测试
 
 src-tauri/src/
 ├── commands/
-│   └── fs.rs                      # 内联测试
+│   └── fs.rs                     # 内联单元测试
 ├── services/
-│   └── knowledge_base_service.rs  # 内联测试
+│   └── knowledge_base_service.rs # 内联单元测试
 └── tests/
-    └── integration_test.rs        # 集成测试
+    └── integration_test.rs       # Rust 集成测试
 ```
 
 ## 测试最佳实践
@@ -188,8 +249,9 @@ src-tauri/src/
 
 ### 4. Mock 和 Stub
 - 对外部依赖进行 Mock
-- 使用 Vitest 的 `vi.mock()` 功能
-- 避免测试依赖真实的文件系统或网络
+- 单元测试：使用 Vitest 的 `vi.mock()` 功能
+- E2E 测试：使用 Playwright 的 `page.route()` 拦截网络请求
+- 避免测试依赖真实的文件系统或网络（单元测试）
 
 ### 5. 边界条件测试
 - 测试正常情况
@@ -197,24 +259,103 @@ src-tauri/src/
 - 测试异常情况
 - 测试空值和 null
 
+### 6. Playwright 集成测试最佳实践
+
+#### 使用 data-testid 属性
+为了提高测试的稳定性，在组件中添加 `data-testid` 属性：
+
+```vue
+<template>
+  <button data-testid="save-button" @click="save">
+    保存
+  </button>
+</template>
+```
+
+测试中使用：
+```typescript
+await page.click('[data-testid="save-button"]')
+```
+
+#### 等待策略
+- 使用 `page.waitForLoadState('networkidle')` 等待页面加载完成
+- 使用 `expect(locator).toBeVisible()` 等待元素可见
+- 避免使用固定的 `page.waitForTimeout()`
+
+#### 截图和视频
+- 失败时自动截图和录制视频（已在配置中启用）
+- 可以手动添加截图：`await page.screenshot({ path: 'screenshot.png' })`
+
+#### 测试数据隔离
+- 每个测试使用独立的测试数据
+- 测试结束后清理测试数据
+- 使用 `test.beforeEach` 和 `test.afterEach` 管理测试环境
+
 ## 测试检查清单
 
 在提交代码前，确保：
 
+### 单元测试检查
 - [ ] 所有新增的工具函数都有单元测试
-- [ ] 所有新增的 Store 都有测试
+- [ ] 所有新增的 Store 都有单元测试
 - [ ] 关键组件有基本的渲染测试
-- [ ] 所有测试都能通过
-- [ ] 测试覆盖率达到要求
-- [ ] 没有跳过的测试（`it.skip`）
+- [ ] 所有单元测试都能通过（`bun test`）
+- [ ] 测试覆盖率达到要求（≥ 80%）
+- [ ] 没有跳过的测试（`it.skip` 或 `test.skip`）
 - [ ] 测试代码清晰易懂
-- [ ] 测试运行速度合理（< 5秒）
+- [ ] 单元测试运行速度合理（< 5秒）
+
+### 集成测试检查（Playwright - 必须）
+- [ ] 所有新增的用户流程都有 E2E 测试
+- [ ] 关键功能有完整的集成测试覆盖
+- [ ] 所有 E2E 测试都能通过（`bun run test:e2e`）
+- [ ] 测试使用了合适的 `data-testid` 选择器
+- [ ] 测试有适当的等待和断言
+- [ ] 测试在 Chromium 和 Firefox 上都能通过
+- [ ] 失败时有清晰的错误信息和截图
+- [ ] E2E 测试运行速度合理（< 2分钟）
 
 ## 持续集成
 
 测试应该集成到 CI/CD 流程中：
 
-1. 每次提交前运行测试
-2. Pull Request 必须通过所有测试
-3. 定期检查测试覆盖率
-4. 失败的测试必须立即修复
+1. 每次提交前运行单元测试（`bun test`）
+2. 每次提交前运行 E2E 测试（`bun run test:e2e`）
+3. Pull Request 必须通过所有测试（单元测试 + E2E 测试）
+4. 定期检查测试覆盖率
+5. 失败的测试必须立即修复
+6. CI 环境中使用 Playwright 的 CI 模式运行测试
+
+## Playwright 安装和配置
+
+### 首次安装
+```bash
+# 安装 Playwright 依赖
+bun add -d @playwright/test playwright
+
+# 安装浏览器
+bunx playwright install
+```
+
+### 配置文件
+Playwright 配置文件位于 `playwright.config.ts`，包含：
+- 测试目录和文件匹配模式
+- 浏览器配置（Chromium、Firefox）
+- 超时设置
+- 报告配置
+- 自动启动开发服务器
+
+### 常用命令
+```bash
+# 运行所有 E2E 测试
+bun run test:e2e
+
+# 带 UI 界面运行
+bun run test:e2e:ui
+
+# 调试模式
+bun run test:e2e --debug
+
+# 查看测试报告
+bunx playwright show-report
+```
