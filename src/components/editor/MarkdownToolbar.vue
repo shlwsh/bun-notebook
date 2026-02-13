@@ -1,8 +1,9 @@
 <template>
-  <div class="h-10 flex items-center gap-1 px-3 bg-[#252525] border-b border-[#2b2b2b]">
+  <div class="h-10 flex items-center gap-1 px-3 bg-[#252525] border-b border-[#2b2b2b]" data-testid="markdown-toolbar">
     <!-- Heading Dropdown -->
     <div class="relative">
       <button
+        data-testid="heading-dropdown-button"
         @click="showHeadingMenu = !showHeadingMenu"
         class="flex items-center gap-1 px-2 py-1 hover:bg-[#3e3e3e] rounded text-[#cccccc] text-xs transition-colors"
         :title="$t('markdownToolbar.heading')"
@@ -14,12 +15,14 @@
       <!-- Heading Dropdown Menu -->
       <div
         v-if="showHeadingMenu"
+        data-testid="heading-menu"
         class="absolute top-full left-0 mt-1 w-32 bg-[#252525] border border-[#3e3e3e] rounded shadow-xl z-50 py-1"
         v-click-outside="() => showHeadingMenu = false"
       >
         <button
           v-for="level in [1, 2, 3, 4, 5, 6]"
           :key="level"
+          :data-testid="`heading-level-${level}-button`"
           @click="handleHeading(level)"
           class="w-full text-left px-3 py-1.5 text-[#cccccc] hover:bg-blue-600 hover:text-white transition-colors"
           :style="{ fontSize: `${18 - level}px` }"
@@ -33,6 +36,7 @@
 
     <!-- Bold -->
     <button
+      data-testid="bold-button"
       @click="handleBold"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="`${$t('markdownToolbar.bold')} (${modKey}+B)`"
@@ -42,6 +46,7 @@
 
     <!-- Italic -->
     <button
+      data-testid="italic-button"
       @click="handleItalic"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="`${$t('markdownToolbar.italic')} (${modKey}+I)`"
@@ -51,6 +56,7 @@
 
     <!-- Strikethrough -->
     <button
+      data-testid="strikethrough-button"
       @click="handleStrikethrough"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="`${$t('markdownToolbar.strikethrough')} (${modKey}+Shift+X)`"
@@ -62,6 +68,7 @@
 
     <!-- Unordered List -->
     <button
+      data-testid="unordered-list-button"
       @click="handleUnorderedList"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="$t('markdownToolbar.unorderedList')"
@@ -71,6 +78,7 @@
 
     <!-- Ordered List -->
     <button
+      data-testid="ordered-list-button"
       @click="handleOrderedList"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="$t('markdownToolbar.orderedList')"
@@ -80,6 +88,7 @@
 
     <!-- Task List -->
     <button
+      data-testid="task-list-button"
       @click="handleTaskList"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="$t('markdownToolbar.taskList')"
@@ -91,6 +100,7 @@
 
     <!-- Table -->
     <button
+      data-testid="table-button"
       @click="handleTable"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="$t('markdownToolbar.table')"
@@ -100,6 +110,7 @@
 
     <!-- Link -->
     <button
+      data-testid="link-button"
       @click="handleLink"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="`${$t('markdownToolbar.link')} (${modKey}+K)`"
@@ -109,6 +120,7 @@
 
     <!-- Image -->
     <button
+      data-testid="image-button"
       @click="handleImage"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="$t('markdownToolbar.image')"
@@ -118,6 +130,7 @@
 
     <!-- Code Block -->
     <button
+      data-testid="code-block-button"
       @click="handleCodeBlock"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="`${$t('markdownToolbar.codeBlock')} (${modKey}+Shift+K)`"
@@ -127,6 +140,7 @@
 
     <!-- Quote -->
     <button
+      data-testid="quote-button"
       @click="handleQuote"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="$t('markdownToolbar.quote')"
@@ -136,6 +150,7 @@
 
     <!-- Horizontal Rule -->
     <button
+      data-testid="horizontal-rule-button"
       @click="handleHorizontalRule"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="$t('markdownToolbar.horizontalRule')"
@@ -147,6 +162,7 @@
 
     <!-- Undo -->
     <button
+      data-testid="undo-button"
       @click="handleUndo"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="`${$t('markdownToolbar.undo')} (${modKey}+Z)`"
@@ -156,6 +172,7 @@
 
     <!-- Redo -->
     <button
+      data-testid="redo-button"
       @click="handleRedo"
       class="p-1.5 hover:bg-[#3e3e3e] rounded text-[#cccccc] hover:text-white transition-colors"
       :title="`${$t('markdownToolbar.redo')} (${modKey}+Shift+Z)`"

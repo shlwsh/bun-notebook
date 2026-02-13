@@ -1,12 +1,13 @@
 <template>
-  <div class="h-full flex flex-col bg-[#1e1e1e]">
+  <div class="h-full flex flex-col bg-[#1e1e1e]" data-testid="file-browser">
     <!-- File Tree Header -->
-    <div class="h-9 flex items-center justify-between px-3 border-b border-[#2b2b2b] bg-[#252525] shrink-0">
-      <span class="text-[11px] font-bold text-[#969696] uppercase tracking-wider truncate mr-2">
+    <div class="h-9 flex items-center justify-between px-3 border-b border-[#2b2b2b] bg-[#252525] shrink-0" data-testid="file-browser-header">
+      <span class="text-[11px] font-bold text-[#969696] uppercase tracking-wider truncate mr-2" data-testid="current-folder-name">
         {{ currentFolder || $t('explorer.title') }}
       </span>
       <div class="flex items-center gap-1">
         <button
+          data-testid="filter-md-button"
           @click="showMdOnly = !showMdOnly"
           class="p-1 rounded transition-colors"
           :class="showMdOnly ? 'bg-blue-600 text-white' : 'hover:bg-[#2a2a2a] text-[#858585] hover:text-white'"
@@ -15,6 +16,7 @@
           <Filter :size="14" />
         </button>
         <button
+          data-testid="expand-all-button"
           @click="handleExpandAll"
           class="p-1 hover:bg-[#2a2a2a] rounded text-[#858585] hover:text-white transition-colors"
           :title="$t('explorer.expandAll')"
@@ -22,6 +24,7 @@
           <ChevronsDown :size="14" />
         </button>
         <button
+          data-testid="collapse-all-button"
           @click="handleCollapseAll"
           class="p-1 hover:bg-[#2a2a2a] rounded text-[#858585] hover:text-white transition-colors"
           :title="$t('explorer.collapseAll')"
@@ -30,6 +33,7 @@
         </button>
         <div class="w-px h-3 bg-[#3e3e3e] mx-1"></div>
         <button
+          data-testid="new-file-button"
           @click="showNewFileInput = !showNewFileInput; showNewFolderInput = false"
           class="p-1 hover:bg-[#2a2a2a] rounded text-[#858585] hover:text-white transition-colors"
           :title="$t('explorer.newFile')"
@@ -37,6 +41,7 @@
           <FilePlus :size="14" />
         </button>
         <button
+          data-testid="new-folder-button"
           @click="showNewFolderInput = !showNewFolderInput; showNewFileInput = false"
           class="p-1 hover:bg-[#2a2a2a] rounded text-[#858585] hover:text-white transition-colors"
           :title="$t('explorer.newFolder')"
@@ -44,6 +49,7 @@
           <FolderPlus :size="14" />
         </button>
         <button
+          data-testid="refresh-button"
           @click="loadFileTree"
           class="p-1 hover:bg-[#2a2a2a] rounded text-[#858585] hover:text-white transition-colors"
           :title="$t('explorer.refresh')"
@@ -51,6 +57,7 @@
           <RefreshCw :size="14" :class="loading ? 'animate-spin' : ''" />
         </button>
         <button
+          data-testid="open-folder-button"
           @click="handleOpenFolder"
           class="p-1 hover:bg-[#2a2a2a] rounded text-[#858585] hover:text-white transition-colors"
           :title="$t('explorer.openFolder')"
@@ -61,10 +68,11 @@
     </div>
 
     <!-- New File Input -->
-    <div v-if="showNewFileInput" class="px-2 py-2 border-b border-[#2b2b2b] bg-[#252525] animate-in slide-in-from-top duration-200">
+    <div v-if="showNewFileInput" class="px-2 py-2 border-b border-[#2b2b2b] bg-[#252525] animate-in slide-in-from-top duration-200" data-testid="new-file-input-panel">
       <div class="flex items-center gap-2">
         <div class="relative flex-1">
           <input 
+            data-testid="new-file-name-input"
             v-model="newFileName"
             @keyup.enter="handleCreateFile"
             @keyup.esc="showNewFileInput = false"
@@ -74,16 +82,17 @@
             class="w-full bg-[#1e1e1e] border border-blue-500/50 rounded px-2 py-1 text-[11px] text-[#cccccc] outline-none"
           />
         </div>
-        <button @click="handleCreateFile" class="text-blue-400 hover:text-blue-300 text-[10px] font-bold">{{ $t('explorer.create') }}</button>
-        <button @click="showNewFileInput = false" class="text-[#6a6a6a] hover:text-white"><X :size="12" /></button>
+        <button data-testid="create-file-button" @click="handleCreateFile" class="text-blue-400 hover:text-blue-300 text-[10px] font-bold">{{ $t('explorer.create') }}</button>
+        <button data-testid="cancel-new-file-button" @click="showNewFileInput = false" class="text-[#6a6a6a] hover:text-white"><X :size="12" /></button>
       </div>
     </div>
 
     <!-- New Folder Input -->
-    <div v-if="showNewFolderInput" class="px-2 py-2 border-b border-[#2b2b2b] bg-[#252525] animate-in slide-in-from-top duration-200">
+    <div v-if="showNewFolderInput" class="px-2 py-2 border-b border-[#2b2b2b] bg-[#252525] animate-in slide-in-from-top duration-200" data-testid="new-folder-input-panel">
       <div class="flex items-center gap-2">
         <div class="relative flex-1">
           <input 
+            data-testid="new-folder-name-input"
             v-model="newFolderName"
             @keyup.enter="handleCreateFolder"
             @keyup.esc="showNewFolderInput = false"
@@ -93,16 +102,17 @@
             class="w-full bg-[#1e1e1e] border border-blue-500/50 rounded px-2 py-1 text-[11px] text-[#cccccc] outline-none"
           />
         </div>
-        <button @click="handleCreateFolder" class="text-blue-400 hover:text-blue-300 text-[10px] font-bold">{{ $t('explorer.create') }}</button>
-        <button @click="showNewFolderInput = false" class="text-[#6a6a6a] hover:text-white"><X :size="12" /></button>
+        <button data-testid="create-folder-button" @click="handleCreateFolder" class="text-blue-400 hover:text-blue-300 text-[10px] font-bold">{{ $t('explorer.create') }}</button>
+        <button data-testid="cancel-new-folder-button" @click="showNewFolderInput = false" class="text-[#6a6a6a] hover:text-white"><X :size="12" /></button>
       </div>
     </div>
 
     <!-- Search Area -->
-    <div class="px-2 py-2 border-b border-[#2b2b2b] bg-[#1e1e1e] shrink-0">
+    <div class="px-2 py-2 border-b border-[#2b2b2b] bg-[#1e1e1e] shrink-0" data-testid="search-area">
       <div class="relative group">
         <Search :size="12" class="absolute left-2.5 top-2 text-[#858585] group-focus-within:text-blue-400 transition-colors" />
         <input 
+          data-testid="file-search-input"
           v-model="searchQuery"
           type="text"
           :placeholder="$t('explorer.searchPlaceholder')"
@@ -110,6 +120,7 @@
         />
         <button 
           v-if="searchQuery" 
+          data-testid="clear-search-button"
           @click="searchQuery = ''"
           class="absolute right-2 top-2 text-[#858585] hover:text-white"
         >
@@ -119,7 +130,7 @@
     </div>
 
     <!-- File Tree Content -->
-    <div class="flex-1 overflow-y-auto custom-scrollbar p-1">
+    <div class="flex-1 overflow-y-auto custom-scrollbar p-1" data-testid="file-tree-content">
       <!-- Loading State -->
       <div v-if="loading && !fileTree.length" class="flex flex-col items-center justify-center h-32 text-[#6a6a6a] text-xs">
         <RefreshCw :size="24" class="mb-2 animate-spin opacity-50" />

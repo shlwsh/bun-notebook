@@ -1,15 +1,16 @@
 <template>
-  <div class="h-full flex flex-col bg-[#1e1e1e] overflow-hidden">
+  <div class="h-full flex flex-col bg-[#1e1e1e] overflow-hidden" data-testid="file-viewer">
     <!-- File Header -->
-    <div class="h-9 flex items-center justify-between px-4 border-b border-[#2b2b2b] bg-[#252525]">
+    <div class="h-9 flex items-center justify-between px-4 border-b border-[#2b2b2b] bg-[#252525]" data-testid="file-viewer-header">
       <div class="flex items-center gap-2 text-blue-400">
         <component :is="getFileIcon()" :size="14" :class="getFileIconColor()" />
-        <span class="text-xs font-medium">{{ fileName }}</span>
+        <span class="text-xs font-medium" data-testid="file-name">{{ fileName }}</span>
       </div>
       <div class="flex items-center gap-2">
         <!-- Save Button -->
         <button 
           v-if="isModified"
+          data-testid="save-file-button"
           @click="saveFile"
           class="flex items-center gap-1.5 px-2 py-0.5 bg-blue-600 hover:bg-blue-500 text-white rounded text-[10px] transition-all shadow-sm"
           :disabled="saving"
@@ -20,8 +21,9 @@
         </button>
 
         <!-- Markdown Toggle: 三个按钮（预览 / 分屏 / 源码） -->
-        <div v-if="isMarkdown" class="flex bg-[#2a2a2a] p-0.5 rounded mr-2">
+        <div v-if="isMarkdown" class="flex bg-[#2a2a2a] p-0.5 rounded mr-2" data-testid="view-mode-toggle">
           <button 
+            data-testid="preview-mode-button"
             @click="viewMode = 'preview'"
             :class="[
               'px-2 py-0.5 text-[10px] rounded transition-all flex items-center gap-1',
@@ -33,6 +35,7 @@
             <span>{{ $t('fileViewer.preview') }}</span>
           </button>
           <button 
+            data-testid="split-mode-button"
             @click="viewMode = 'split'"
             :class="[
               'px-2 py-0.5 text-[10px] rounded transition-all flex items-center gap-1',
@@ -44,6 +47,7 @@
             <span>分屏</span>
           </button>
           <button 
+            data-testid="editor-mode-button"
             @click="viewMode = 'editor'"
             :class="[
               'px-2 py-0.5 text-[10px] rounded transition-all flex items-center gap-1',
@@ -59,6 +63,7 @@
         <div class="flex items-center gap-1.5 relative">
           <!-- Theme Button -->
           <button 
+            data-testid="theme-button"
             @click="showThemeMenu = !showThemeMenu"
             class="flex items-center gap-1 px-2 py-0.5 bg-[#2a2a2a] hover:bg-[#3e3e3e] text-[#cccccc] rounded text-[10px] transition-all mr-2 relative"
             :title="$t('fileViewer.theme')"
@@ -70,12 +75,14 @@
             <!-- Theme Dropdown -->
             <div 
               v-if="showThemeMenu"
+              data-testid="theme-menu"
               class="absolute top-full right-0 mt-1 w-32 bg-[#252525] border border-[#3e3e3e] rounded shadow-xl z-[100] py-1"
               v-click-outside="() => showThemeMenu = false"
             >
               <button 
                 v-for="theme in themes"
                 :key="theme.value"
+                :data-testid="`theme-option-${theme.value}`"
                 @click.stop="handleThemeSelect(theme)"
                 class="w-full text-left px-3 py-1.5 text-[11px] hover:bg-blue-600 hover:text-white flex items-center justify-between transition-colors"
                 :class="selectedTheme.value === theme.value ? 'text-blue-400 font-bold' : 'text-[#cccccc]'"
@@ -88,6 +95,7 @@
 
           <!-- Export Button -->
           <button 
+            data-testid="export-button"
             @click="showExportMenu = !showExportMenu"
             class="flex items-center gap-1 px-2 py-0.5 bg-[#2a2a2a] hover:bg-[#3e3e3e] text-[#cccccc] rounded text-[10px] transition-all"
             :title="$t('fileViewer.export')"
@@ -100,10 +108,12 @@
           <!-- Export Dropdown -->
           <div 
             v-if="showExportMenu"
+            data-testid="export-menu"
             class="absolute top-full right-0 mt-1 w-40 bg-[#252525] border border-[#3e3e3e] rounded shadow-2xl z-[100] py-1"
             v-click-outside="() => showExportMenu = false"
           >
             <button 
+              data-testid="export-html-button"
               @click="handleExport('html')"
               class="w-full text-left px-3 py-1.5 text-[11px] text-[#cccccc] hover:bg-blue-600 hover:text-white flex items-center justify-between transition-colors"
             >
@@ -111,6 +121,7 @@
               <span class="opacity-40">.html</span>
             </button>
             <button 
+              data-testid="export-pdf-button"
               @click="handleExport('pdf')"
               class="w-full text-left px-3 py-1.5 text-[11px] text-[#cccccc] hover:bg-blue-600 hover:text-white flex items-center justify-between transition-colors"
             >
@@ -118,6 +129,7 @@
               <span class="opacity-40">.pdf</span>
             </button>
             <button 
+              data-testid="export-docx-button"
               @click="handleExport('docx')"
               class="w-full text-left px-3 py-1.5 text-[11px] text-[#cccccc] hover:bg-blue-600 hover:text-white flex items-center justify-between transition-colors"
             >
@@ -127,6 +139,7 @@
           </div>
           
           <button 
+            data-testid="print-button"
             @click="handlePrint"
             class="p-1 hover:bg-[#2a2a2a] rounded text-[#858585] hover:text-white transition-colors"
             :title="$t('fileViewer.print')"
